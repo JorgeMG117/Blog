@@ -1,0 +1,1014 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[Aaron Bos]]></title>
+        <description><![CDATA[Aaron Bos]]></description>
+        <link>https://aaronbos.dev</link>
+        <image>
+            <url>https://aaronbos.dev/static/card-logo.png</url>
+            <title>Aaron Bos</title>
+            <link>https://aaronbos.dev</link>
+        </image>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Fri, 14 Jun 2024 01:13:28 GMT</lastBuildDate>
+        <atom:link href="https://aaronbos.dev/feed.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Staying Productive with a Work Log]]></title>
+            <description><![CDATA[Life as a software engineer can sometimes feel hectic, so it's important to have processes that keep us grounded and focused on the things that matter. Recently I've adopted a habit of keeping a work log to do just that. My goal for this post is to share the benefits I've noticed since keeping a daily work log and what I hope to gain from the habit in the long term.]]></description>
+            <link>https://aaronbos.dev/posts/daily-work-log-productivity</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/daily-work-log-productivity</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[career]]></category>
+            <category><![CDATA[productivity]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Fri, 14 Jun 2024 01:09:46 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Trimming Video with FFmpeg]]></title>
+            <description><![CDATA[If you're a developer and work with video, there's a chance that you may need to trim or cut parts of the video for your users. In this post, I'll be going through the commands needed to do this in FFmpeg along with some details to consider when trimming video. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/trim-video-ffmpeg</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/trim-video-ffmpeg</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[tools]]></category>
+            <category><![CDATA[video]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Wed, 01 May 2024 01:47:53 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Find and Replace in Neovim]]></title>
+            <description><![CDATA[While Neovim may not be my daily editor, I still prefer it to modify files quickly. Often I find myself in Neovim when I need to make small changes to JSON or YAML files. A common action that I perform is a simple "find and replace" which is supported by most editors. As with most things, the method to do this in Vim is powerful, but not necessarily straightforward unless you know the right commands and flags. In this post, I'll go into some detail about substituting characters in Vim and Neovim.]]></description>
+            <link>https://aaronbos.dev/posts/find-and-replace-neovim</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/find-and-replace-neovim</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[tools]]></category>
+            <category><![CDATA[neovim]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Tue, 26 Mar 2024 02:26:53 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[A Reminder of Why I Started This Blog]]></title>
+            <description><![CDATA[In the rush of everyday life, it's easy to lose sight of your "North Star". For me and this blog, my North Star is learning. If I'm not learning, then chances are I'm not feeling energized. It's time to get back to what I have enjoyed so much with this blog over the last three years. Sharing what I'm learning through interesting and valuable blog posts.]]></description>
+            <link>https://aaronbos.dev/posts/reminder-of-why-i-blog</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/reminder-of-why-i-blog</guid>
+            <category><![CDATA[musings]]></category>
+            <category><![CDATA[notes]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Fri, 08 Mar 2024 01:49:45 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[npm and Semantic Versioning]]></title>
+            <description><![CDATA[If you've been a developer for any amount of time you've undoubtedly reached for external dependencies to solve specific problems. Whether the problem is as small as padding the left side of a string or as large as a component library, external packages are inevitable. In this post, I'll be going into the nuances of how npm leverages semantic versioning and some information that will be useful as npm package consumers. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/npm-and-semantic-versioning</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/npm-and-semantic-versioning</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[javascript]]></category>
+            <category><![CDATA[node]]></category>
+            <category><![CDATA[npm]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Thu, 18 Jan 2024 02:43:37 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Reviewing 2023 and Previewing 2024]]></title>
+            <description><![CDATA[This time of year (holidays and New Year's) means something different for everyone, but for me, they are always a time to reflect on what has been and look ahead at what could be. As I've done in previous years I'm going to review the previous year in terms of this blog and my career as well as look ahead to the next year in the context of what to expect. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/2023-review-2024-preview</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/2023-review-2024-preview</guid>
+            <category><![CDATA[reflection]]></category>
+            <category><![CDATA[growth]]></category>
+            <category><![CDATA[musings]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Mon, 01 Jan 2024 05:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Introduction to HTTP Live Streaming]]></title>
+            <description><![CDATA[Video has become an integral part of our digital lives. We rely on video streaming services like YouTube, Netflix, and Hulu to consume all kinds of content from sports to Movies and TV. If you've ever wondered what kind of technology might be powering these streaming services, you've landed in the right place. In this post, I'm going to share some info about HTTP Live Streaming and how it is used to provide smooth video playback experiences.]]></description>
+            <link>https://aaronbos.dev/posts/http-live-streaming-hls-introduction</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/http-live-streaming-hls-introduction</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[web]]></category>
+            <category><![CDATA[video]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Mon, 18 Dec 2023 02:41:50 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Using Git's Reflog to Recover Data]]></title>
+            <description><![CDATA[Git is a nearly ubiquitous tool for version control these days and it serves its purpose dutifully. As great as Git is, there are still sharp edges and chances for mistakes to happen. In this post, I'll be sharing information about a lesser-known feature in Git that can fix those mistakes and help with data recovery. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/recover-data-with-git-reflog</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/recover-data-with-git-reflog</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[git]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Thu, 30 Nov 2023 04:28:50 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Looking for Solutions Instead of Problems]]></title>
+            <description><![CDATA[Working in a field that is constantly changing can be challenging for a multitude of reasons. Our mindset for approaching the constant barrage of challenges can make a world of difference in both outcome and attitude. In this quick post, I'm going to share my thoughts on approaching problems with a solution-oriented mindset. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/solutions-over-problems</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/solutions-over-problems</guid>
+            <category><![CDATA[opinion]]></category>
+            <category><![CDATA[career]]></category>
+            <category><![CDATA[musings]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Fri, 17 Nov 2023 02:34:07 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Battling Burnout]]></title>
+            <description><![CDATA[I’ve heard of others experiencing feelings of burnout in relation to free time or side projects, but I had never experienced it for myself. While I’m sure it’s different for everyone, I recently started to feel burned out with the time I spent outside of work on things that felt like work. In this post, I’ll share how I’ve dealt with and moved on from those feelings. Let’s dive in!]]></description>
+            <link>https://aaronbos.dev/posts/battling-burnout</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/battling-burnout</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[musings]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Wed, 01 Nov 2023 02:25:53 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Book Review: Engineering Management for the Rest of Us]]></title>
+            <description><![CDATA[In this post, I'll share a short review of "Engineering Management for the Rest of Us" by Sarah Drasner. I heard about this book in a podcast a while back and I was excited to give it a read since I've recently transitioned into an engineering management role. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/engineering-management-for-the-rest-of-us-review</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/engineering-management-for-the-rest-of-us-review</guid>
+            <category><![CDATA[book]]></category>
+            <category><![CDATA[review]]></category>
+            <category><![CDATA[management]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Mon, 23 Oct 2023 00:34:12 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Leading with Trust]]></title>
+            <description><![CDATA[Trust is a foundational piece of most relationships and it's no different with technical leadership. In this post, I'll share my thoughts on the benefits of building trust with teammates to become an effective leader.]]></description>
+            <link>https://aaronbos.dev/posts/leading-with-trust</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/leading-with-trust</guid>
+            <category><![CDATA[management]]></category>
+            <category><![CDATA[leadership]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Mon, 02 Oct 2023 02:34:06 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Q3 Roadmap Feature: Search Improvements]]></title>
+            <description><![CDATA[At the beginning of the year, I created a roadmap to plan the development of my blog itself. In this post, I'll talk through the improvements for this quarter that involved the blog post search experience. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/q3-feature-improved-search</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/q3-feature-improved-search</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[blog]]></category>
+            <category><![CDATA[roadmap]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Fri, 15 Sep 2023 01:40:28 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Understanding Thread-Safety in .NET]]></title>
+            <description><![CDATA[Writing code that always behaves as expected when run in parallel is HARD. I'll be the first to admit that I'm NOT an expert in this field, but I do my best to generally understand the principles that make parallel programming possible. This post attempts to unpack the "thread-safe" term for writing .NET code and explain some of the techniques that allow for thread safety to be possible.]]></description>
+            <link>https://aaronbos.dev/posts/understand-thread-safety-dotnet</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/understand-thread-safety-dotnet</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[csharp]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Fri, 01 Sep 2023 04:01:43 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Engineer to Manager: Initial Thoughts]]></title>
+            <description><![CDATA[I recently made the switch from Senior Engineering to Engineering Manager 😱. In this post, I'll share some general thoughts on the experience so far. While everyone's experience and situation is different, I think it's helpful to share my initial thoughts about making the transition a successful one for everyone.]]></description>
+            <link>https://aaronbos.dev/posts/engineer-to-manager-initial-thoughts</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/engineer-to-manager-initial-thoughts</guid>
+            <category><![CDATA[engineering]]></category>
+            <category><![CDATA[management]]></category>
+            <category><![CDATA[musings]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Thu, 17 Aug 2023 03:36:16 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Developing A Growth Mindset]]></title>
+            <description><![CDATA[Life can be challenging. We are put into situations that challenge us mentally and physically all of the time. The mindset that we have going into these situations can significantly affect the outcome positively or negatively. In this post, I'll share my takeaways from the book Mindset by Carol Dweck which focuses on using a growth mindset to navigate difficult situations.]]></description>
+            <link>https://aaronbos.dev/posts/devloping-growth-mindset</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/devloping-growth-mindset</guid>
+            <category><![CDATA[personal]]></category>
+            <category><![CDATA[growth]]></category>
+            <category><![CDATA[musings]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Tue, 01 Aug 2023 01:58:32 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[A Closer Look at C# Extension Methods]]></title>
+            <description><![CDATA[Extension methods have been around in .NET for a long time and most developers use them daily without even realizing it. In this post, we're going to take a closer look at extension methods and how they work. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/closer-look-csharp-extension-methods</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/closer-look-csharp-extension-methods</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[csharp]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Thu, 20 Jul 2023 02:52:50 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Managing "Dark Matter Time"]]></title>
+            <description><![CDATA[As I've grown in my software engineering career I've learned that time isn't always easy to manage. Learning to deal with writing code, context shifting, collaborating, and all of the other aspects that go into being an effective engineer can be challenging. In this post, I'm going to try to flesh out the idea of "dark matter time" and how we can learn to use it effectively. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/manage-dark-matter-time</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/manage-dark-matter-time</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[tips]]></category>
+            <category><![CDATA[musings]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Sat, 01 Jul 2023 00:50:36 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Podcast Lineup 2023]]></title>
+            <description><![CDATA[For the past several years podcasts have been an integral part of my personal development process. Each year I like to share the podcasts that I'm subscribed to with the goal of spreading the word and explaining why I find them worth listening to. Here's my list for 2023!]]></description>
+            <link>https://aaronbos.dev/posts/podcast-lineup-2023</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/podcast-lineup-2023</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[podcasts]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Fri, 16 Jun 2023 01:25:06 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[How to Use SemaphoreSlim in C#]]></title>
+            <description><![CDATA[Historically I've held an opinion that reaching for more uncommon parts of a programming language to solve a problem meant that there was likely a better, less complicated solution. I'd put the use of semaphores in this category, but I recently had to reach for SemaphoreSlim to solve a problem. In this post, I'll discuss the concept of semaphores in general, their implementation in C#, and an example use case.]]></description>
+            <link>https://aaronbos.dev/posts/how-to-use-semaphoreslim-csharp</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/how-to-use-semaphoreslim-csharp</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[csharp]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Wed, 31 May 2023 01:17:11 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Monocode: A font for code]]></title>
+            <description><![CDATA[Over the past ten months I've been working on a custom font for me to use in programming environments. The font is called Monocode and in this post I'm going to talk about how I created it, why I created it, and what makes it unique. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/monocode-font</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/monocode-font</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[tools]]></category>
+            <category><![CDATA[fonts]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Thu, 18 May 2023 07:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Using Binaural Beats to Improve Focus]]></title>
+            <description><![CDATA[Over the years I've found it helpful to listen to music while doing work that requires some amount of focus or concentration. Recently I've started to listen to binaural beats during these periods of work and have found them to be very helpful. In this post, I'm going to share some of the benefits I've found from listening to binaural beats and also how I listen to them. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/binaural-beats-focus</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/binaural-beats-focus</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[productivity]]></category>
+            <category><![CDATA[focus]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Sun, 30 Apr 2023 23:59:59 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Is it Time to Lean into AI?]]></title>
+            <description><![CDATA[As developers, we are constantly exposed to new tools and technologies, but the most recent wave of AI advancements feels different. In this post, I'm going to share my thoughts on whether or not the hype around generative AI is real.]]></description>
+            <link>https://aaronbos.dev/posts/lean-into-ai</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/lean-into-ai</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[thoughts]]></category>
+            <category><![CDATA[ai]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Sun, 16 Apr 2023 22:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Connecting to CockroachDB with Postgres.js]]></title>
+            <description><![CDATA[I've been using CockroachDB on this blog for some time and I've recently transitioned to using the Postgres.js library for interacting with the database. In this post, I'm going to share how to connect to CockroachDB from a Node app using Postgres.js.]]></description>
+            <link>https://aaronbos.dev/posts/connect-cockroachdb-postgresjs</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/connect-cockroachdb-postgresjs</guid>
+            <category><![CDATA[cockroachdb]]></category>
+            <category><![CDATA[postgres]]></category>
+            <category><![CDATA[node]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Fri, 31 Mar 2023 12:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Exploring CommonJS and ES Modules]]></title>
+            <description><![CDATA[I was recently working on a project involving quite a bit of JavaScript. I always knew about ES Modules and CommonJS, but I never knew much about their differences. This post is a result of my exploration of CommonJS and ES Modules to learn more about their history and use cases.]]></description>
+            <link>https://aaronbos.dev/posts/commonjs-vs-es-module</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/commonjs-vs-es-module</guid>
+            <category><![CDATA[javascript]]></category>
+            <category><![CDATA[typescript]]></category>
+            <category><![CDATA[notes]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Wed, 15 Mar 2023 12:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[The Anatomy of an FFmpeg Command]]></title>
+            <description><![CDATA[FFmpeg can do just about anything with video and audio processing as long as you know what to ask. In this post, I will break down the different aspects of an FFmpeg command to better understand how FFmpeg processes them.]]></description>
+            <link>https://aaronbos.dev/posts/ffmpeg-command-anatomy</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/ffmpeg-command-anatomy</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[tools]]></category>
+            <category><![CDATA[video]]></category>
+            <category><![CDATA[ffmpeg]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Tue, 28 Feb 2023 23:59:59 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Running FFmpeg in the Browser with Wasm]]></title>
+            <description><![CDATA[The introduction of WebAssembly (Wasm) has enabled developers to create experiences on the web that rival native performance. In this post, I'll provide an introduction to WebAssembly and also share an example of how it is leveraged to run FFmpeg directly in the browser.]]></description>
+            <link>https://aaronbos.dev/posts/ffmpeg-wasm-browser</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/ffmpeg-wasm-browser</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[web]]></category>
+            <category><![CDATA[wasm]]></category>
+            <category><![CDATA[video]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Wed, 15 Feb 2023 02:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[My Case for Conventional Comments]]></title>
+            <description><![CDATA[In this post, I'll present my case for using conventional comments in code reviews. I've been an advocate of conventional comments for about a year and have enjoyed using them. I'm hoping to share the benefits so others can adopt their own standards for code review. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/case-for-conventional-comments</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/case-for-conventional-comments</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[practices]]></category>
+            <category><![CDATA[musings]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Tue, 31 Jan 2023 19:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Collections in .NET Through the Lens of Big O Notation]]></title>
+            <description><![CDATA[We use collections in our code daily, but do we ever step back and consider how they perform in the context of Big O Notation benchmarks? In this post, we'll examine the different collection types in .NET to see how their behaviors relate to well-known Big O notation functions. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/dotnet-collections-big-o</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/dotnet-collections-big-o</guid>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[csharp]]></category>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[fundamentals]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Sun, 15 Jan 2023 19:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Looking Back at 2022 and Ahead to 2023]]></title>
+            <description><![CDATA[As the calendar year comes to a close, I'll take a moment to reflect on the posts and site improvements this year and also provide a sneak peek at what will be coming in 2023. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/2022-year-in-review</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/2022-year-in-review</guid>
+            <category><![CDATA[reflection]]></category>
+            <category><![CDATA[growth]]></category>
+            <category><![CDATA[musings]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Sun, 01 Jan 2023 02:30:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Why I Decided to Give Up Social Media]]></title>
+            <description><![CDATA[In this post, I'll share why I recently decided to step away from a handful of social media platforms. I'll also touch on how I plan to replace the value that social media provided me with other alternatives. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/quit-social-media</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/quit-social-media</guid>
+            <category><![CDATA[personal]]></category>
+            <category><![CDATA[life]]></category>
+            <category><![CDATA[musings]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Wed, 28 Dec 2022 12:29:56 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Defining and Using Enums as Bit Flags in C#]]></title>
+            <description><![CDATA[I've been using enums in C# since the beginning of my development career. In this post, we are going to dive into how the Flags attribute can be applied to enums and also the different kinds of operations that come into play when an enum is defined as a bit flag. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/csharp-flags-enum</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/csharp-flags-enum</guid>
+            <category><![CDATA[csharp]]></category>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[fundamentals]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Fri, 23 Dec 2022 03:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rest is Best When Done Intentionally]]></title>
+            <description><![CDATA[Rest is great, but it's not always easy. In this post, I'm going to share some of my thoughts on the benefits of being intentional with taking a break. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/intentional-rest</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/intentional-rest</guid>
+            <category><![CDATA[opinion]]></category>
+            <category><![CDATA[career]]></category>
+            <category><![CDATA[life]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Thu, 15 Dec 2022 02:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Introducing Search to my Blog]]></title>
+            <description><![CDATA[My blog's two year anniversary is coming up in January 2023 and in that time I've written 56 posts on a variety of topics. In order to provide some more visibility into posts without having to scroll through them all I've added the ability to search posts. In this post, we're going to talk a bit about the feature, its implementation, and how it might evolve in the future. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/announce-search-feature</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/announce-search-feature</guid>
+            <category><![CDATA[announcement]]></category>
+            <category><![CDATA[blog]]></category>
+            <category><![CDATA[feature]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Mon, 21 Nov 2022 01:55:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Some Thoughts on Specialization]]></title>
+            <description><![CDATA[These days software developers are categorized into two common buckets, generalists and specialists. Neither category has an inherent advantage over the other and often times the pros and cons of a categories are contextual. In this post, I'm going to share my current thoughts on these categories and how floating between them has impacted my career.]]></description>
+            <link>https://aaronbos.dev/posts/thoughts-on-specialization</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/thoughts-on-specialization</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[career]]></category>
+            <category><![CDATA[opinion]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Sat, 12 Nov 2022 02:10:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Debugging C# in Neovim with nvim-dap]]></title>
+            <description><![CDATA[As a software developer debugging skills are invaluable. Over the years debugging tools have evolved to become an integral part of the development toolbox. In this post, we are going to look at how we can configure a debugging experience for .NET code in Neovim. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/debugging-csharp-neovim-nvim-dap</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/debugging-csharp-neovim-nvim-dap</guid>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[csharp]]></category>
+            <category><![CDATA[neovim]]></category>
+            <category><![CDATA[tools]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Wed, 02 Nov 2022 02:10:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[GitHub Has Our Back With Token Security]]></title>
+            <description><![CDATA[I recently stumbled across some behavior by GitHub that was surprising at first, then reassuring once I understood the root cause. In this post, we are going to discuss a particular aspect of GitHub's security around keeping GitHub API tokens out of public repositories. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/github-revoke-token-on-push</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/github-revoke-token-on-push</guid>
+            <category><![CDATA[learning]]></category>
+            <category><![CDATA[security]]></category>
+            <category><![CDATA[github]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Fri, 21 Oct 2022 01:10:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Get Comfortable Being Uncomfortable]]></title>
+            <description><![CDATA[In my opinion, the ability to learn and to continue to learn is one of the most important skills for software engineers to have. In this post, we're going to talk about the value of living outside of our comfort zone to positively impact growth and learning. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/comfortable-being-uncomfortable</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/comfortable-being-uncomfortable</guid>
+            <category><![CDATA[learning]]></category>
+            <category><![CDATA[development]]></category>
+            <category><![CDATA[career]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Tue, 11 Oct 2022 01:20:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Learning Vim Keycode Concepts]]></title>
+            <description><![CDATA[Since diving into the world of Vim and Neovim, I've felt myself become more comfortable with the tool and its idiosyncrasies. One of the hurdles I faced early on was understanding the documentation for different keycodes. In this post, we're going to cover the common keycodes and the concepts around them. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/vim-keycode-concepts</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/vim-keycode-concepts</guid>
+            <category><![CDATA[learning]]></category>
+            <category><![CDATA[neovim]]></category>
+            <category><![CDATA[tools]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Fri, 30 Sep 2022 01:20:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Enabling Roslyn EditorConfig Support in Neovim]]></title>
+            <description><![CDATA[In many editors and languages code analysis is a feature that is nearly expected to be available out of the box. With C# and .NET, the Roslyn API and Omnisharp language server are tools that make code analysis possible. In this post, we're going to look at how we can put these tools to use in Neovim resulting in a better development experience. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/dotnet-roslyn-editorconfig-neovim</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/dotnet-roslyn-editorconfig-neovim</guid>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[csharp]]></category>
+            <category><![CDATA[neovim]]></category>
+            <category><![CDATA[tools]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Tue, 20 Sep 2022 00:45:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Generating Random Quotes via CLI]]></title>
+            <description><![CDATA[Ever needed a bit of inspiration to get your day started? In this post we'll be looking at how we can generate a random quote and easily format and print it in our terminal. While this may seem silly, I think some of this post will be relevant and applicable to other CLI based needs. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/quote-api-terminal</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/quote-api-terminal</guid>
+            <category><![CDATA[cli]]></category>
+            <category><![CDATA[introduction]]></category>
+            <category><![CDATA[tools]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Tue, 13 Sep 2022 00:55:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Debugging .NET in VS Code]]></title>
+            <description><![CDATA[Debugging is a vital aspect of most developer workflows. An easy-to-use debugger within an editor can speed up development by providing immediate feedback on a running application. In this post, we will be covering the debugging functionality in VS Code in the context of .NET applications. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/debug-dotnet-vs-code</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/debug-dotnet-vs-code</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[introduction]]></category>
+            <category><![CDATA[tools]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Thu, 01 Sep 2022 00:53:11 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[VS Code Setup for .NET Development]]></title>
+            <description><![CDATA[Visual Studio is and probably always will be the defacto IDE for .NET development, but that doesn't mean there aren't other options out there. In this post, we're going to learn about several extensions available for VS Code that make writing .NET a productive and enjoyable experience. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/vs-code-dotnet-setup</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/vs-code-dotnet-setup</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[csharp]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Sun, 21 Aug 2022 23:48:33 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Introduction to Cancellation in .NET]]></title>
+            <description><![CDATA[As software development evolves and adopts asynchronous paradigms, the need for cancellation support in applications has become more prevalent. In this post, we will learn about the core concepts in regards to cancellation in .NET code. This post will provide a solid foundation for continued learning on the concept of cancellation. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/cancellation-csharp-dotnet</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/cancellation-csharp-dotnet</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[introduction]]></category>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[csharp]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Thu, 11 Aug 2022 01:30:59 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Announcing the Ability to Like Posts]]></title>
+            <description><![CDATA[Up to this point, there has been no way to interact with the posts that I publish on this blog. The most recent release changes that. Readers can now like posts after reading them. In this post, we'll be discussing the feature, the high-level implementation, and how it could evolve in the future. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/announce-like-post</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/announce-like-post</guid>
+            <category><![CDATA[introduction]]></category>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[learning]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Mon, 01 Aug 2022 02:35:07 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[My Software Development Podcast Lineup (2022)]]></title>
+            <description><![CDATA[Over the years podcasts have become integral to my daily routine. In this post, I'll provide an update on my current (2022) podcast lineup along with some details about why I find each podcast interesting or useful. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/software-podcasts-2022</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/software-podcasts-2022</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[learning]]></category>
+            <category><![CDATA[growth]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Sun, 24 Jul 2022 02:21:54 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Effective Data Fetching with React and SWR]]></title>
+            <description><![CDATA[Retrieving data is typically a straightforward task. Retrieving data in the most efficient manner can be more complex. This post will dive into how SWR can simplify the process of fetching data while also solving potentially complex problems like performance, caching, data store mutation, and more. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/swr-nextjs-react</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/swr-nextjs-react</guid>
+            <category><![CDATA[web]]></category>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[react]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Tue, 12 Jul 2022 03:48:13 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Reflections on Time Management]]></title>
+            <description><![CDATA[The ability to effectively manage our time as software engineers can feel like a superpower. In this post, I am going to share my current time management strategy and go into a bit of depth on how I think it has benefited me throughout my career. My hope is to provide some insight into ideas you can try to improve your time management or to reinforce strategies that you are already implementing. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/time-management-reflections</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/time-management-reflections</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[growth]]></category>
+            <category><![CDATA[learning]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Fri, 01 Jul 2022 04:20:29 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Representing Logic Gates as Boolean Functions]]></title>
+            <description><![CDATA[Boolean functions and logic gates are at the heart of everything we do as software engineers. While it may not always be obvious or apparent, boolean expressions or the result of combining them form the building blocks for much of what we see and use today in technology. In this post, we'll be looking at how we can go from elementary logic gate definitions to boolean functions based on a few principles.]]></description>
+            <link>https://aaronbos.dev/posts/logic-gates-boolean-functions</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/logic-gates-boolean-functions</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[learning]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Thu, 23 Jun 2022 02:44:14 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Merging Objects in TypeScript (and JavaScript)]]></title>
+            <description><![CDATA[Merging two objects seems like it should be a trivial problem to solve at face value. Unfortunately, as we'll see in this post, the problem isn't as straightforward as some may think. In this post, we'll be looking at the options available for merging objects in TypeScript (the options discussed will work just as well with JavaScript).]]></description>
+            <link>https://aaronbos.dev/posts/merge-objects-typescript-javascript</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/merge-objects-typescript-javascript</guid>
+            <category><![CDATA[javascript]]></category>
+            <category><![CDATA[typescript]]></category>
+            <category><![CDATA[learning]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Sun, 12 Jun 2022 00:02:31 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Scaffolding XML Comments with Extended Properties in EF Core 6]]></title>
+            <description><![CDATA[SQL Server has a feature called extended properties which can be used to add metadata to databases, schemas, tables, and columns. In this post, we are going to see how to use the extended property metadata to automatically generate corresponding XML comments on our scaffolded entities in EF Core 6.]]></description>
+            <link>https://aaronbos.dev/posts/ef-core-6-extended-property-comments</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/ef-core-6-extended-property-comments</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[efcore]]></category>
+            <category><![CDATA[sql]]></category>
+            <category><![CDATA[csharp]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Sat, 28 May 2022 12:07:29 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Creating a Daily Init Script]]></title>
+            <description><![CDATA[In this post, we're going to explore the concept of a daily init script. The goal of this script is to open all of the necessary applications and tools that we use on a daily basis. This allows us to be productive by default instead of having to make separate decisions about what tools we need to accomplish a given task. I've been using some form of an init script for a few years now and I hope to share why I find it so useful.]]></description>
+            <link>https://aaronbos.dev/posts/daily-init-script</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/daily-init-script</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[tools]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Sat, 21 May 2022 01:36:59 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Working with Related Data in EF Core 6]]></title>
+            <description><![CDATA[I think that one of the most convenient features of ORMs like Entity Framework is the ability to reference related data via properties on an object or entity. In this post, we'll be looking at a few different ways to load related data in EF Core 6.]]></description>
+            <link>https://aaronbos.dev/posts/ef-core-6-related-data</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/ef-core-6-related-data</guid>
+            <category><![CDATA[csharp]]></category>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[efcore]]></category>
+            <category><![CDATA[database]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Thu, 12 May 2022 04:02:04 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Writing C# in Neovim]]></title>
+            <description><![CDATA[In this post, we'll be looking at how to set up our development environment to effectively write C# in Neovim. We'll also be looking a little more in-depth specifically at the tooling in Neovim that makes this all possible.]]></description>
+            <link>https://aaronbos.dev/posts/csharp-dotnet-neovim</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/csharp-dotnet-neovim</guid>
+            <category><![CDATA[learning]]></category>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[csharp]]></category>
+            <category><![CDATA[neovim]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Fri, 29 Apr 2022 03:26:38 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Function Overloading in TypeScript]]></title>
+            <description><![CDATA[While learning about TypeScript I came across function overloading. The way it works in TypeScript seemed different than what I was used to in languages like C# and Java. In this post, we'll be learning about overloading functions in TypeScript and potential alternatives that are better suited to certain situations.]]></description>
+            <link>https://aaronbos.dev/posts/function-overload-typescript</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/function-overload-typescript</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[learning]]></category>
+            <category><![CDATA[typescript]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Wed, 20 Apr 2022 01:03:28 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[When to Use React.useRef]]></title>
+            <description><![CDATA[The introduction of hooks a couple of years ago (version 16.8) introduced a massive paradigm shift in the world of React. Hooks allow developers to "hook" into state and component lifecycles without the use of classes! In this post, we're going to look at the useRef hook, how it works, and why we should use it.]]></description>
+            <link>https://aaronbos.dev/posts/using-react-useref-hook</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/using-react-useref-hook</guid>
+            <category><![CDATA[web]]></category>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[javascript]]></category>
+            <category><![CDATA[typescript]]></category>
+            <category><![CDATA[react]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Mon, 11 Apr 2022 00:33:55 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Learning TypeScript: Utility Types]]></title>
+            <description><![CDATA[One of the things that I've enjoyed the most while learning TypeScript is the language's flexibility when working with types. I think that Utility Types are great examples of that flexibility. In this post, we'll be looking at the main kinds of utility types available and also how we can use them to improve our code.]]></description>
+            <link>https://aaronbos.dev/posts/typescript-utility-types</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/typescript-utility-types</guid>
+            <category><![CDATA[learning]]></category>
+            <category><![CDATA[typescript]]></category>
+            <category><![CDATA[dev]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Thu, 31 Mar 2022 00:27:58 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Learning TypeScript: Literal Types]]></title>
+            <description><![CDATA[In this post, we'll be looking at literal types, what they are, and how we can potentially use them in our code day to day. Coming from a language like C# where there isn't really an equivalent to literal types I find them to be quite interesting and I hope you will too. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/typescript-literal-types</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/typescript-literal-types</guid>
+            <category><![CDATA[learning]]></category>
+            <category><![CDATA[typescript]]></category>
+            <category><![CDATA[dev]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Sat, 19 Mar 2022 13:38:44 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Reasons to Use C# Record Types]]></title>
+            <description><![CDATA[Prior to C# 9 classes were the defacto option for creating reference types in C#, but now we have records. In this post, we'll be going over a few details about C# records and also the benefits that I believe they can provide over using classes (in some scenarios).]]></description>
+            <link>https://aaronbos.dev/posts/csharp-record-types</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/csharp-record-types</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[csharp]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Thu, 10 Mar 2022 01:32:52 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[What is SQL Index Fragmentation?]]></title>
+            <description><![CDATA[SQL indexes are an important part of every database, but they don't come without requiring some regular maintenance. In this post, we'll be looking at SQL index fragmentation in the context of Microsoft's SQL Server and how it can affect our database performance.]]></description>
+            <link>https://aaronbos.dev/posts/sql-server-index-fragmentation</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/sql-server-index-fragmentation</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[database]]></category>
+            <category><![CDATA[sql]]></category>
+            <category><![CDATA[learning]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Sun, 27 Feb 2022 04:15:08 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Learning TypeScript: Conditional Types]]></title>
+            <description><![CDATA[Conditional Types in TypeScript may not be a language feature used day to day by most developers, but as I was reading the TypeScript Handbook I found the concept interesting and decided to dig a little deeper. In this post, we'll take a high-level look at the concept of conditional types and how they can be leveraged in our code.]]></description>
+            <link>https://aaronbos.dev/posts/typescript-conditional-types</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/typescript-conditional-types</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[learning]]></category>
+            <category><![CDATA[typescript]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Sat, 19 Feb 2022 12:40:17 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Learning TypeScript: Narrowing Types]]></title>
+            <description><![CDATA[Often times the TypeScript compiler knows more about our own code than we do. However, there are occasions when that's not the case, which is where type narrowing comes in. In this post, we'll take a look at the different options available for narrowing types in our TypeScript code.]]></description>
+            <link>https://aaronbos.dev/posts/typescript-narrowing</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/typescript-narrowing</guid>
+            <category><![CDATA[web]]></category>
+            <category><![CDATA[learning]]></category>
+            <category><![CDATA[typescript]]></category>
+            <category><![CDATA[dev]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Fri, 11 Feb 2022 04:41:30 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Working With JSON in Postgres 14]]></title>
+            <description><![CDATA[Postgres has had native JSON support for almost 10 years (since version 9.2). In September 2021 Postgres 14 was released and it included some great features that improve our experience greatly when working with JSON data. In this post, we'll be diving into the new JSON features in Postgres 14 to see how we can leverage them in our day-to-day.]]></description>
+            <link>https://aaronbos.dev/posts/postgres-14-json</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/postgres-14-json</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[json]]></category>
+            <category><![CDATA[postgres]]></category>
+            <category><![CDATA[database]]></category>
+            <category><![CDATA[sql]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Fri, 28 Jan 2022 03:31:36 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Learning T-SQL Window Functions]]></title>
+            <description><![CDATA[Being able to query and manipulate data effectively is a valuable skill for any software engineer to have in their toolbelt. In this post, we're going to take a look at Window Functions and the functionality they provide. Although this post is going to focus on using window functions with T-SQL, it's important to note that window functions are part of the ANSI SQL standard and are available in other SQL database implementations.]]></description>
+            <link>https://aaronbos.dev/posts/learn-tsql-window-functions</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/learn-tsql-window-functions</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[database]]></category>
+            <category><![CDATA[sql]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Thu, 20 Jan 2022 04:02:54 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Know Your Tools: Oh My Zsh and Git]]></title>
+            <description><![CDATA[As developers, we are exposed to many tools. How we learn and use those tools can make a big difference in our productivity and happiness. In this post, we'll be looking at the git plugin for Oh My Zsh and how it can be leveraged to increase our productivity using Git in the terminal.]]></description>
+            <link>https://aaronbos.dev/posts/ohmyzsh-git</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/ohmyzsh-git</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[learning]]></category>
+            <category><![CDATA[git]]></category>
+            <category><![CDATA[tools]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Fri, 07 Jan 2022 01:26:08 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[What I've Learned in a Year of Blogging]]></title>
+            <description><![CDATA[In January 2021 I created this blog without any expectations of what would come of it. I had a plan but wasn't sure I'd be able to execute it. In this post, I'll take a moment to reflect and look back at this year going over what I've learned, what went well, and what didn't go so well, as well as take a look ahead at next year to see how I can improve.]]></description>
+            <link>https://aaronbos.dev/posts/2021-year-review</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/2021-year-review</guid>
+            <category><![CDATA[review]]></category>
+            <category><![CDATA[learning]]></category>
+            <category><![CDATA[growth]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Wed, 29 Dec 2021 04:40:42 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Learning When to Cut the Thread]]></title>
+            <description><![CDATA[As software engineers, we frequently tackle complex problems in code. The source of a problem's complexity may be from the problem itself, from the code's architecture, or from something else entirely. In this post, we're going to compare writing code to pulling on a loose thread from a piece of clothing. There comes a time when writing software that we need to know when to "cut the thread" or we'll risk the whole thing unraveling.]]></description>
+            <link>https://aaronbos.dev/posts/learn-to-cut-thread</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/learn-to-cut-thread</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[learning]]></category>
+            <category><![CDATA[growth]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Wed, 15 Dec 2021 03:35:30 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Working With Null in C#]]></title>
+            <description><![CDATA[As software developers, we are bound to encounter scenarios where our code behaves in unexpected ways. Some of those unexpected behaviors could be caused by null object references. In this post, we're going to take a look at the different language constructs that C# provides for working with null. My goal is to provide information that leads to more tidy code and fewer bugs.]]></description>
+            <link>https://aaronbos.dev/posts/handling-null-references</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/handling-null-references</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[learning]]></category>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[csharp]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Tue, 30 Nov 2021 02:35:19 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Formatting C# Code with EditorConfig]]></title>
+            <description><![CDATA[Code style and formatting can be polarizing, to say the least. One way to remove subjectivity about code style preferences within a codebase is to enforce specific rules. In this post we're going to talk about how using the EditorConfig file standard can help provide consistent styles throughout a codebase.]]></description>
+            <link>https://aaronbos.dev/posts/csharp-dotnet-editorconfig</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/csharp-dotnet-editorconfig</guid>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[csharp]]></category>
+            <category><![CDATA[dev]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Tue, 16 Nov 2021 05:58:28 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Running SQL Server on Linux with Docker]]></title>
+            <description><![CDATA[Since its creation SQL Server has been synonymous with Microsoft and Windows, but this all changed with SQL Server 2016. SQL Server is no longer just a database for Windows and in this post, we'll be going over the steps to get Microsoft SQL Server running on Linux in a Docker container using Docker Compose.]]></description>
+            <link>https://aaronbos.dev/posts/sql-server-linux-docker-compose</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/sql-server-linux-docker-compose</guid>
+            <category><![CDATA[sql]]></category>
+            <category><![CDATA[database]]></category>
+            <category><![CDATA[linux]]></category>
+            <category><![CDATA[docker]]></category>
+            <category><![CDATA[containers]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Fri, 29 Oct 2021 03:52:13 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Introduction to HTTP OPTIONS Method]]></title>
+            <description><![CDATA[If you've ever looked at the Network tab in the Browser Dev Tools, you may have noticed a lot of OPTIONS requests being sent to the server. Oftentimes these requests are not being made from our code, but made by the browser. In this post, we'll be covering the purpose that the HTTP OPTIONS method serves in our web applications.]]></description>
+            <link>https://aaronbos.dev/posts/http-options-introduction</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/http-options-introduction</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[web]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Fri, 15 Oct 2021 02:24:03 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Rebase Git Branches Interactively]]></title>
+            <description><![CDATA[Git's rebase functionality could be one of the most polarizing features of the ubiquitous version control system. Some have horror stories of rebasing branches, while others use it whenever possible. In this post, we'll be touching on the interactive rebase feature which can reduce a lot of the anxiety around rebasing Git branches.]]></description>
+            <link>https://aaronbos.dev/posts/git-rebase-interactive</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/git-rebase-interactive</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[git]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Fri, 01 Oct 2021 02:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[How to Use C#'s Parallel.ForEach]]></title>
+            <description><![CDATA[There are certain operations performed in code that lend themselves to being executed in parallel. Some might even call these tasks "embarrassingly parallel". In this post we'll be going over how we can use C#'s Parallel.ForEach to iterate over collections in parallel.]]></description>
+            <link>https://aaronbos.dev/posts/parallel-foreach-csharp</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/parallel-foreach-csharp</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[introduction]]></category>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[parallel]]></category>
+            <category><![CDATA[csharp]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Thu, 16 Sep 2021 02:39:43 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[How To Uninstall tSQLt From SQL Server]]></title>
+            <description><![CDATA[If you've used the SQL unit testing framework tSQLt before you may have come across the need to uninstall it from a database. There are a couple of ways you could go about this, but we'll look at the quickest method.]]></description>
+            <link>https://aaronbos.dev/posts/uninstall-tsqlt-sqlserver</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/uninstall-tsqlt-sqlserver</guid>
+            <category><![CDATA[sql]]></category>
+            <category><![CDATA[database]]></category>
+            <category><![CDATA[dev]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Sat, 28 Aug 2021 03:06:57 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Parsing Image Metadata with C# and ImageSharp]]></title>
+            <description><![CDATA[Recently I've been using C# and ImageSharp to work with images in code. In this post we'll be taking a look at how we can read and write IPTC Metadata properties for a given image.]]></description>
+            <link>https://aaronbos.dev/posts/iptc-metadata-csharp-imagesharp</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/iptc-metadata-csharp-imagesharp</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[csharp]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Mon, 16 Aug 2021 00:26:08 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Scraping HTML with Selenium and C#]]></title>
+            <description><![CDATA[In this post, we'll be going over how we can use Selenium WebDriver and C# to scrape HTML from websites. I recently started working on a personal project that I plan to use for gathering English Premier League player statistics for my fantasy team. I had a fun time getting Selenium set up and working so I thought I'd share.]]></description>
+            <link>https://aaronbos.dev/posts/selenium-csharp-scraping</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/selenium-csharp-scraping</guid>
+            <category><![CDATA[web]]></category>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[csharp]]></category>
+            <category><![CDATA[selenium]]></category>
+            <category><![CDATA[scraping]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Thu, 29 Jul 2021 00:47:38 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Introduction to SQL Indexes]]></title>
+            <description><![CDATA[For most of my career I've known the general purpose of an SQL (read S-Q-L) index, but I've never taken the time to dig a little deeper to understand more until recently. In this post we'll be taking a look at SQL indexes from a high level, as well as how they can be used effectively (and not so effectively) to impact the performance of SQL operations.]]></description>
+            <link>https://aaronbos.dev/posts/sql-index-introduction</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/sql-index-introduction</guid>
+            <category><![CDATA[introduction]]></category>
+            <category><![CDATA[sql]]></category>
+            <category><![CDATA[database]]></category>
+            <category><![CDATA[learning]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Mon, 19 Jul 2021 01:49:29 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[How Podcasts Helped Me Grow as a Developer]]></title>
+            <description><![CDATA[Podcasts have become very popular over the years and you can almost guarantee that there is a podcast available for any of your personal interests. In this post, I'll describe how I believe podcasts have helped me grow as a developer. We'll also take a look at some of my favorite podcasts and discuss a little bit of what they're about and why I enjoy them so much.]]></description>
+            <link>https://aaronbos.dev/posts/software-podcast-dev-growth</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/software-podcast-dev-growth</guid>
+            <category><![CDATA[growth]]></category>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[learning]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Wed, 23 Jun 2021 04:02:26 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Asynchronous C#: Below the Surface]]></title>
+            <description><![CDATA[In my last two posts, we've covered C#'s async programming model and also using async/await for asynchronous execution. In the final post of this series on async programming in C#, we're going to take a look behind the scenes at all the work the compiler does for us to make code execute asynchronously. Let's dive in!]]></description>
+            <link>https://aaronbos.dev/posts/async-csharp-below-surface</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/async-csharp-below-surface</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[csharp]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Sat, 05 Jun 2021 03:59:53 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Using Async and Await in C#]]></title>
+            <description><![CDATA[Async and Await are important keywords in C#. In this post, we'll be looking into how we can use `async` and `await` to write asynchronous code in the same manner that we write synchronous code. For a higher-level look at asynchronous programming in C# check out my previous post where we discussed the Task-based Asynchronous Programming pattern and more!]]></description>
+            <link>https://aaronbos.dev/posts/async-await-csharp</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/async-await-csharp</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[csharp]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Mon, 17 May 2021 04:35:32 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Asynchronous Programming in C# - Part 1]]></title>
+            <description><![CDATA[Writing code is hard. Writing asynchronous code is even harder. Luckily C# provides us with the `async` and `await` keywords to make asynchronous programming a little easier. This is the first of a series of posts in which I'll be going over writing asynchronous code in C# as well as a bit into the internals of how it works under the hood.]]></description>
+            <link>https://aaronbos.dev/posts/async-csharp-pt1</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/async-csharp-pt1</guid>
+            <category><![CDATA[csharp]]></category>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[introduction]]></category>
+            <category><![CDATA[dev]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Mon, 03 May 2021 03:58:47 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Creating Your Own Framework for Learning]]></title>
+            <description><![CDATA[As software engineers, we are constantly learning in order to grow and stay relevant. I've found that trying to learn something new without a plan is difficult. This is why I created a framework for learning, which is what I'll be covering in this post.]]></description>
+            <link>https://aaronbos.dev/posts/learning-framework</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/learning-framework</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[learning]]></category>
+            <category><![CDATA[growth]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Fri, 16 Apr 2021 03:47:51 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Selenian. A Minimal Dark Theme for Visual Studio Code. ]]></title>
+            <description><![CDATA[There are many great themes available for Visual Studio Code, but I'm definitely the type of person who enjoys tailoring my development environment to my specific needs. So I created my own theme called Selenian.]]></description>
+            <link>https://aaronbos.dev/posts/selenian-vs-code-theme</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/selenian-vs-code-theme</guid>
+            <category><![CDATA[dev]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Tue, 06 Apr 2021 01:39:32 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Updating JSON Data in PostgreSQL]]></title>
+            <description><![CDATA[If you're storing JSON data in Postgres, you'll eventually need to update it. In this post, we'll talk about a couple of functions that can be used to update JSON data.]]></description>
+            <link>https://aaronbos.dev/posts/update-json-postgresql</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/update-json-postgresql</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[postgres]]></category>
+            <category><![CDATA[database]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Sat, 20 Mar 2021 22:23:28 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[EF Core and Client Evaluation]]></title>
+            <description><![CDATA[Entity Framework Core is an amazing tool for interacting with databases of all kinds, but it doesn't come without potential pitfalls that can impact performance if you're not careful.]]></description>
+            <link>https://aaronbos.dev/posts/efcore-client-evaluation</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/efcore-client-evaluation</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[database]]></category>
+            <category><![CDATA[dotnet]]></category>
+            <category><![CDATA[efcore]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Mon, 08 Mar 2021 03:45:27 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Querying JSON Data in PostgreSQL]]></title>
+            <description><![CDATA[Storing JSON provides flexibility, but can add complexity. Let's take a look at how we can store and query this data in PostgreSQL.]]></description>
+            <link>https://aaronbos.dev/posts/query-postgresql-json</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/query-postgresql-json</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[json]]></category>
+            <category><![CDATA[postgres]]></category>
+            <category><![CDATA[database]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Sat, 13 Feb 2021 05:06:42 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Behind the Scenes of Making my Blog]]></title>
+            <description><![CDATA[The number of options for setting up a blog can be overwhelming. Let's take a look at what worked well for my goals and expectations.]]></description>
+            <link>https://aaronbos.dev/posts/blog-behind-the-scenes</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/blog-behind-the-scenes</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[web]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Fri, 05 Feb 2021 04:49:44 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[JWTs: A Peek Under the Hood]]></title>
+            <description><![CDATA[JWTs are used heavily in front and back end development. Let's open the hood to see how they're put together.]]></description>
+            <link>https://aaronbos.dev/posts/jwt-under-the-hood</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/jwt-under-the-hood</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[web]]></category>
+            <category><![CDATA[json]]></category>
+            <category><![CDATA[introduction]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Wed, 27 Jan 2021 03:41:32 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Hello, World!]]></title>
+            <description><![CDATA[The proverbial "hello, world" blog post introducing myself to the interwebs.]]></description>
+            <link>https://aaronbos.dev/posts/hello-world</link>
+            <guid isPermaLink="true">https://aaronbos.dev/posts/hello-world</guid>
+            <category><![CDATA[dev]]></category>
+            <category><![CDATA[beginnings]]></category>
+            <dc:creator><![CDATA[Aaron Bos]]></dc:creator>
+            <pubDate>Thu, 21 Jan 2021 01:18:37 GMT</pubDate>
+        </item>
+    </channel>
+</rss>
