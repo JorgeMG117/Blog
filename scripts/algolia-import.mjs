@@ -3,7 +3,7 @@ import algoliasearch from "algoliasearch";
 import path from "path";
 import fs from "fs/promises";
 import matter from "gray-matter";
-import remark from "remark";
+import { remark } from "remark";
 import strip from "strip-markdown";
 import { v4 as uuidv4 } from "uuid";
 
@@ -14,7 +14,7 @@ export async function run() {
     process.env.ALGOLIA_ADMIN_API_KEY
   );
 
-  const index = client.initIndex("aaronbos_blog_index");
+  const index = client.initIndex("jorgemartinez_blog_index");
 
   const postsDir = path.join(process.cwd(), "_posts");
   const posts = await fs.readdir(postsDir);

@@ -11,7 +11,7 @@ async function updateAlgoliaIndex() {
     process.env.ALGOLIA_APP_ID,
     process.env.ALGOLIA_ADMIN_API_KEY
   );
-  const index = client.initIndex("aaronbos_blog_index");
+  const index = client.initIndex("jorgemartinez_blog_index");
 
   const postsToIndex =
     await sql`select id, title, content, slug, description, tags, (published_at at time zone 'utc') as published_at from post.post where is_indexed = false and published_at is not null order by published_at desc`;
