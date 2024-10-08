@@ -16,14 +16,14 @@ export default function About() {
           <Image
             className="rounded-full m-auto"
             src="/profile.jpg"
-            alt="Jorge's picture"
+            alt="Jorge&apos;s picture" // Changed single quote
             height="200"
             width="200"
           />
         </div>
         <p className="my-4"> 
             I am a passionate <span className="font-semibold">software engineer</span> 
-            from Spain, currently pursuing a Double Master's Degree in Computer Science and 
+            from Spain, currently pursuing a Double Master&apos;s Degree in Computer Science and 
             Applied Artificial Intelligence at the University Carlos III of Madrid. 
         </p>
         <p className="my-4">
@@ -33,7 +33,7 @@ export default function About() {
             overseeing a class of over 80 students, and managing all exercises and assignments.
         </p>
         <p className="my-4">
-            My programming journey began with C++ in 2018, and since then, I've continuously 
+            My programming journey began with C++ in 2018, and since then, I&apos;ve continuously 
             expanded my skills. My strongest programming languages are Go, Python, and C++, but 
             what truly excites me is solving complex problems and understanding the technologies behind them. 
             This curiosity has led me to explore various fields such as backend development, cloud computing, 
@@ -44,7 +44,7 @@ export default function About() {
             my portfolio: <a href="https://jorgemartinezgil.com">Portfolio</a>
         </p>
         <p className="my-4">
-          If you'd like to connect, reach out via the social links at the bottom of the page. I'd love to hear from you!
+          If you&apos;d like to connect, reach out via the social links at the bottom of the page. I&apos;d love to hear from you!
         </p>
         <p className="my-4">Happy reading!</p>
         <AllPostsLink text="See all my posts" />
@@ -52,3 +52,4 @@ export default function About() {
     </Layout>
   );
 }
+
