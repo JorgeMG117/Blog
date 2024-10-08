@@ -4,7 +4,7 @@ import sql from "../database/db.mjs";
 
 async function generateRssFeed() {
   const feed = new RSS({
-    title: "Aaron Bos",
+    title: "Jorge Martinez",
     site_url: `${process.env.NEXT_PUBLIC_ORIGIN_RSS}`,
     feed_url: `${process.env.NEXT_PUBLIC_ORIGIN_RSS}/feed.xml`,
     image_url: `${process.env.NEXT_PUBLIC_ORIGIN_RSS}/static/card-logo.png`,
@@ -20,7 +20,7 @@ async function generateRssFeed() {
       date: post.published_at,
       description: post.description,
       categories: post.tags,
-      author: "Aaron Bos",
+      author: "Jorge Martinez",
     });
   });
 

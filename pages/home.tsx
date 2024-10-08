@@ -1,24 +1,36 @@
-// pages/static-page.js
-import fs from 'fs';
-import path from 'path';
+import Head from "next/head";
+import Layout from "../components/layout";
+import Intro from "../components/intro";
+import RecentPosts from "../components/recent-posts";
+import { getRecentPosts, BlogPost } from "../lib/posts";
+import AllPostsLink from "../components/all-posts-link";
+import { GetStaticProps } from "next";
 
-type StaticPageProps = {
-  htmlContent: string;
-};
+interface Props {
+  recentPosts: BlogPost[];
+}
 
-export default function StaticPage({ htmlContent }: StaticPageProps) {
+export default function Home({ recentPosts }: Props) {
   return (
-    <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+    <>
+      <Head>
+        <title>Jorge Martinez</title>
+      </Head>
+      <Layout>
+        <section>
+          <Intro />
+          <RecentPosts recentPosts={recentPosts} />
+        </section>
+        <AllPostsLink text="See all posts" />
+      </Layout>
+    </>
   );
 }
 
-export async function getStaticProps() {
-  const filePath = path.join(process.cwd(), 'public', 'index.html');
-  const htmlContent = fs.readFileSync(filePath, 'utf8');
-
+export const getStaticProps: GetStaticProps = async () => {
+  const recentPosts = await getRecentPosts();
   return {
-    props: {
-      htmlContent,
-    },
+    props: { recentPosts },
   };
-}
+};
+

@@ -7,7 +7,7 @@ export default function NavLogo() {
         className={`dark:text-blue-300 dark:hover:text-blue-100 hover:text-blue-700 text-blue-500 cursor-pointer text-2xl font-mono font-semibold flex items-center flex-none px-2`}
         href="/"
       >
-        &lt;Aaron Bos&#47;&gt;
+        Jorge Martinez
       </Link>
     </div>
   );

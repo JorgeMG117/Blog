@@ -1,35 +1,23 @@
-import Head from "next/head";
-import Layout from "../components/layout";
-import Intro from "../components/intro";
-import RecentPosts from "../components/recent-posts";
-import { getRecentPosts, BlogPost } from "../lib/posts";
-import AllPostsLink from "../components/all-posts-link";
-import { GetStaticProps } from "next";
+import fs from 'fs';
+import path from 'path';
 
-interface Props {
-  recentPosts: BlogPost[];
-}
+type IndexProps = {
+  htmlContent: string;
+};
 
-export default function Home({ recentPosts }: Props) {
+export default function Index({ htmlContent }: IndexProps) {
   return (
-    <>
-      <Head>
-        <title>Aaron Bos</title>
-      </Head>
-      <Layout>
-        <section>
-          <Intro />
-          <RecentPosts recentPosts={recentPosts} />
-        </section>
-        <AllPostsLink text="See all posts" />
-      </Layout>
-    </>
+    <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const recentPosts = await getRecentPosts();
+export async function getStaticProps() {
+  const filePath = path.join(process.cwd(), 'public', 'index.html');
+  const htmlContent = fs.readFileSync(filePath, 'utf8');
+
   return {
-    props: { recentPosts },
+    props: {
+      htmlContent,
+    },
   };
-};
+}

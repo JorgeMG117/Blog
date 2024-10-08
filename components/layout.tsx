@@ -14,7 +14,7 @@ export default function Layout({ children, user, isWide }: Props) {
   return (
     <>
       <MetaSocial
-        title="Aaron Bos' Blog"
+        title="Jorge Martinez' Blog"
         url={`${process.env.NEXT_PUBLIC_ORIGIN}`}
         description="Blogging about software and technology from a software engineer's perspective."
         image={`${process.env.NEXT_PUBLIC_ORIGIN}/static/card-logo.png`}

@@ -39,7 +39,7 @@ export default function Posts() {
   return (
     <>
       <Head>
-        <title>Aaron Bos - Blog Posts</title>
+        <title>Jorge Martinez - Blog Posts</title>
       </Head>
       <Layout>
         <section className="mb-10">

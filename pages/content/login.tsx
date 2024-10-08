@@ -30,7 +30,7 @@ export default function Login() {
   return (
     <>
       <Head>
-        <title>Aaron Bos - Login</title>
+        <title>Jorge Martinez - Login</title>
       </Head>
       <Layout>
         <div className="w-1/2 mx-auto">

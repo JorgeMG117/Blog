@@ -1,6 +1,7 @@
 import { NavigationLink } from "./nav";
 import NavLink from "./nav-link";
 import ThemeIcon from "./theme-icon";
+import SpanishIcon from "./es-icon";
 import NavSearch from "./nav-search";
 import { ApiResponse, User } from "../types/api/types";
 import Router from "next/router";
@@ -41,6 +42,9 @@ export default function NavBody({ navLinks, user }: Props) {
       </div>
       <div className="mt-1 mr-5 flex flex-0">
         <ThemeIcon />
+      </div>
+      <div className="mt-1 mr-5 flex flex-0">
+        <SpanishIcon />
       </div>
       {user && (
         <div className="hidden md:flex">

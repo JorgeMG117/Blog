@@ -7,7 +7,7 @@ export default function About() {
   return (
     <Layout>
       <Head>
-        <title>Aaron Bos - About</title>
+        <title>Jorge Martinez - About</title>
       </Head>
       <section>
         <h1 className="mb-4 font-semibold text-2xl">About Me</h1>
@@ -15,61 +15,36 @@ export default function About() {
         <div className="mt-4 text-center">
           <Image
             className="rounded-full m-auto"
-            src="https://res.cloudinary.com/aaron-bos/image/upload/v1666052817/20221017_HudlHeadshots_AaronBos-5_iggfs3.jpg"
-            alt="Aaron's picture"
+            src="/profile.jpg"
+            alt="Jorge's picture"
             height="200"
             width="200"
           />
         </div>
-        <p className="my-4">
-          I am a{" "}
-          <span className="font-semibold">software engineering manager</span>{" "}
-          from the midwest United States currently working as an Engineering
-          Manager at Hudl, a sports technology company that focuses on
-          empowering teams and athletes with video and data.
+        <p className="my-4"> 
+            I am a passionate <span className="font-semibold">software engineer</span> 
+            from Spain, currently pursuing a Double Master's Degree in Computer Science and 
+            Applied Artificial Intelligence at the University Carlos III of Madrid. 
         </p>
         <p className="my-4">
-          I’ve been a part of software teams since my first job as an intern
-          doing business analytics in 2014. From there I transitioned to a
-          full-time Business Analyst and eventually took on the role and
-          responsibilities of a Product Manager. In 2016 I decided to make the
-          transition to software engineering by heading back to school. I was
-          able to begin working as a full-time engineer while still attending
-          school in 2017 and I haven’t looked back.
+            In addition to my studies, I am actively engaged in research at 
+            the University of Madrid, where I develop tools to collect and analyze data 
+            from hydrographic basins. Alongside my research, I also teach Language Processors, 
+            overseeing a class of over 80 students, and managing all exercises and assignments.
         </p>
         <p className="my-4">
-          Since beginning my career in software my roles have gone from focusing
-          on <span className="font-semibold">end-user satisfaction</span> and
-          business workflows, to solving business problems through{" "}
-          <span className="font-semibold">communication with stakeholders</span>
-          , to now{" "}
-          <span className="font-semibold">
-            building the software that delights users and provides value to the
-            business
-          </span>
-          .
+            My programming journey began with C++ in 2018, and since then, I've continuously 
+            expanded my skills. My strongest programming languages are Go, Python, and C++, but 
+            what truly excites me is solving complex problems and understanding the technologies behind them. 
+            This curiosity has led me to explore various fields such as backend development, cloud computing, 
+            and machine learning. I embrace new challenges, even outside my areas of expertise, and am always eager to learn along the way.
         </p>
         <p className="my-4">
-          I’ve worked on a wide variety of applications and domains, but they’ve
-          all been heavily entrenched in the{" "}
-          <span className="font-semibold">.NET</span> ecosystem. I’ve written
-          code in <span className="font-semibold">C#</span> (and VB.NET) using{" "}
-          <span className="font-semibold">Web API, MVC</span>, and yes, even Web
-          Forms. I’ve worked with{" "}
-          <span className="font-semibold">MS SQL, Postgres</span>, and even a
-          bit with mainframes. Recently I’ve enjoyed getting closely familiar
-          with{" "}
-          <span className="font-semibold">
-            video technologies, the AWS ecosystem, Python, and MongoDB
-          </span>{" "}
-          as part of my role at Hudl. I pride myself in writing code that is{" "}
-          <span className="font-semibold">readable</span> and{" "}
-          <span className="font-semibold">testable</span>. I also believe that
-          the best way to understand a topic is to teach it to someone else.
+            For more details about my professional background, feel free to explore 
+            my portfolio: <a href="https://jorgemartinezgil.com">Portfolio</a>
         </p>
         <p className="my-4">
-          If you’d like to get in touch, connect with me via the social links at
-          the bottom of the page. I’d love to hear from you!
+          If you'd like to connect, reach out via the social links at the bottom of the page. I'd love to hear from you!
         </p>
         <p className="my-4">Happy reading!</p>
         <AllPostsLink text="See all my posts" />
