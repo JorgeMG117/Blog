@@ -43,9 +43,9 @@ export default function NavBody({ navLinks, user }: Props) {
       <div className="mt-1 mr-5 flex flex-0">
         <ThemeIcon />
       </div>
-      <div className="mt-1 mr-5 flex flex-0">
+      {/* <div className="mt-1 mr-5 flex flex-0">
         <SpanishIcon />
-      </div>
+      </div> */}
       {user && (
         <div className="hidden md:flex">
           <div className="mt-1 flex flex-0">

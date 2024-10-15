@@ -6,10 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "rss": "node ./scripts/rss.js",
+    "rss": "node ./scripts/rss.mjs",
     "lint": "next lint",
     "import": "node ./scripts/import-posts.js",
-    "create-post": "node ./scripts/new-post.mjs"
+    "create-post": "node ./scripts/new-post.mjs",
+    "connect-db": "node ./scripts/connect-db.js"
   },
   "dependencies": {
     "@vercel/analytics": "^1.1.1",
@@ -23,6 +24,7 @@
     "next": "^14.0.4",
     "next-themes": "^0.2.1",
     "node-fetch": "^3.3.2",
+    "pg": "^8.13.0",
     "postgres": "^3.4.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

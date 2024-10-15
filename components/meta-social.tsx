@@ -16,7 +16,7 @@ export default function MetaSocial({ title, url, description, image }: Props) {
       <meta property="og:type" content="website" />
       <meta property="og:image" content={image} />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:creator" content="@AaronMBos" />
+      <meta name="twitter:creator" content="@KoreDump" />
     </Head>
   );
 }
