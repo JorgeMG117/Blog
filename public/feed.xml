@@ -9,8 +9,30 @@
             <link>https://personal-iota-six.vercel.app/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 15 Oct 2024 12:13:43 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 29 Oct 2024 21:32:44 GMT</lastBuildDate>
         <atom:link href="https://personal-iota-six.vercel.app//feed.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[My Second Blog Post]]></title>
+            <description><![CDATA[This is a description of my first blog post.]]></description>
+            <link>https://personal-iota-six.vercel.app//posts/my-second-blog-post</link>
+            <guid isPermaLink="true">https://personal-iota-six.vercel.app//posts/my-second-blog-post</guid>
+            <category><![CDATA[blog]]></category>
+            <category><![CDATA[ programming]]></category>
+            <category><![CDATA[ web development]]></category>
+            <dc:creator><![CDATA[Jorge Martinez]]></dc:creator>
+            <pubDate>Tue, 29 Oct 2024 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[How I Passed the Google Cloud Associate Cloud Engineer Exam (Guide)]]></title>
+            <link>https://personal-iota-six.vercel.app//posts/how-i-passed-the-google-cloud-associate-cloud-engineer-exam-guide</link>
+            <guid isPermaLink="true">https://personal-iota-six.vercel.app//posts/how-i-passed-the-google-cloud-associate-cloud-engineer-exam-guide</guid>
+            <category><![CDATA[Google Cloud]]></category>
+            <category><![CDATA[ GCP]]></category>
+            <category><![CDATA[ certification]]></category>
+            <category><![CDATA[ Associate Cloud Engineer]]></category>
+            <dc:creator><![CDATA[Jorge Martinez]]></dc:creator>
+            <pubDate>Tue, 29 Oct 2024 00:00:00 GMT</pubDate>
+        </item>
         <item>
             <title><![CDATA[My First Blog Post]]></title>
             <description><![CDATA[This is a description of my first blog post.]]></description>
@@ -21,6 +43,17 @@
             <category><![CDATA[ web development]]></category>
             <dc:creator><![CDATA[Jorge Martinez]]></dc:creator>
             <pubDate>Wed, 10 Jan 2024 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[The title]]></title>
+            <description><![CDATA[The description]]></description>
+            <link>https://personal-iota-six.vercel.app//posts/&lt;the-slug&gt;</link>
+            <guid isPermaLink="true">https://personal-iota-six.vercel.app//posts/&lt;the-slug&gt;</guid>
+            <category><![CDATA[<comma]]></category>
+            <category><![CDATA[delimited]]></category>
+            <category><![CDATA[values>]]></category>
+            <dc:creator><![CDATA[Jorge Martinez]]></dc:creator>
+            <pubDate>Sat, 01 Jan 2000 00:00:00 GMT</pubDate>
         </item>
     </channel>
 </rss>
