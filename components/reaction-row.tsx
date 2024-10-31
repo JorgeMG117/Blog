@@ -90,7 +90,7 @@ export default function ReactionRow({ postSlug, url }: Props) {
           />
           <span className="text-sm ml-2">Share</span>
         </AnchorButton>
-        <AnchorButton href="https://aaronbos.dev/feed.xml">
+        <AnchorButton href="https://jorgemartinezgil.com/feed.xml">
           <ButtonIcon
             fill="currentColor"
             path={icons.bell}
