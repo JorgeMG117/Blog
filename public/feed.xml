@@ -9,8 +9,22 @@
             <link>https://personal-iota-six.vercel.app/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Thu, 31 Oct 2024 16:32:56 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 02 Dec 2024 12:17:10 GMT</lastBuildDate>
         <atom:link href="https://personal-iota-six.vercel.app//feed.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[How to create a locally trusted HTTPS server in Linux]]></title>
+            <description><![CDATA[If you're developing an application that requires HTTPS, you'll need a server with SSL/TLS certificates. While self-signed certificates can be used, browsers and systems don't trust them by default, leading to security warnings. In this guide, I'll show you how to create your own Certificate Authority (CA) and generate locally trusted certificates without using tools like mkcert. I'll also set up an HTTPS server in Go, but the principles apply to any programming language.]]></description>
+            <link>https://personal-iota-six.vercel.app//posts/create-locally-trusted-https-server-linux</link>
+            <guid isPermaLink="true">https://personal-iota-six.vercel.app//posts/create-locally-trusted-https-server-linux</guid>
+            <category><![CDATA[HTTPS]]></category>
+            <category><![CDATA[ SSL/TLS]]></category>
+            <category><![CDATA[ Go]]></category>
+            <category><![CDATA[ Linux]]></category>
+            <category><![CDATA[ Certificate Authority]]></category>
+            <category><![CDATA[ Self-Signed Certificates]]></category>
+            <dc:creator><![CDATA[Jorge Martinez]]></dc:creator>
+            <pubDate>Mon, 02 Dec 2024 00:00:00 GMT</pubDate>
+        </item>
         <item>
             <title><![CDATA[How I Passed the Google Cloud Associate Cloud Engineer Exam (Guide)]]></title>
             <description><![CDATA[For everyone who's nervous about taking on the Google Cloud Associate Cloud Engineer exam, I'm here to share the steps I followed to pass it successfully. If you're wondering how to prepare, what resources to use, and what to expect on exam day, this guide is for you.]]></description>
