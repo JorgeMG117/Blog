@@ -22,6 +22,7 @@ export default async function handler(
         data: user,
         isSuccess: true,
       });
+      return;
     }
     res.status(405);
   } catch (error) {

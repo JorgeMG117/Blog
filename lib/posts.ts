@@ -60,7 +60,7 @@ export async function getPaginatedPosts(
 }
 
 function formatDate(date: Date): string {
-  var options: Intl.DateTimeFormatOptions = {
+  const options: Intl.DateTimeFormatOptions = {
     weekday: "long",
     year: "numeric",
     month: "long",

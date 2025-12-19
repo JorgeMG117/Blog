@@ -7,7 +7,7 @@ export default function NavSearch() {
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
-      var inputs = ["input", "select", "button", "textarea"];
+      const inputs = ["input", "select", "button", "textarea"];
 
       if (
         event.key === "/" &&

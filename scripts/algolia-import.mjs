@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import algoliasearch from "algoliasearch";
+import { algoliasearch } from "algoliasearch";
 import path from "path";
 import fs from "fs/promises";
 import matter from "gray-matter";
@@ -13,8 +13,6 @@ export async function run() {
     process.env.ALGOLIA_APP_ID,
     process.env.ALGOLIA_ADMIN_API_KEY
   );
-
-  const index = client.initIndex("jorgemartinez_blog_index");
 
   const postsDir = path.join(process.cwd(), "_posts");
   const posts = await fs.readdir(postsDir);
@@ -35,7 +33,10 @@ export async function run() {
     })
   );
 
-  await index.saveObjects(rawPosts);
+  await client.saveObjects({
+    indexName: "jorgemartinez_blog_index",
+    objects: rawPosts
+  });
 }
 
 await run();

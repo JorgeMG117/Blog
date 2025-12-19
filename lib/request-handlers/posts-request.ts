@@ -73,7 +73,7 @@ export async function handlePatch(
     };
   }
 
-  var updatedPost = { ...dbPost, ...req.fields, id: dbPost.id };
+  const updatedPost = { ...dbPost, ...req.fields, id: dbPost.id };
 
   await sql`
     update post.post

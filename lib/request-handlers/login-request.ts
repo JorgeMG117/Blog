@@ -4,7 +4,7 @@ import sql from "../../database/db.mjs";
 
 export async function handlePost(req: LoginRequest): Promise<User> {
   const user = (
-    await sql`select username, password from site.user where username = ${req.username}`
+    await sql`select username, password from "user".user where username = ${req.username}`
   )[0];
 
   if (!user) {

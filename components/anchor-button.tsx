@@ -1,6 +1,8 @@
+import { ReactNode } from "react";
+
 interface Props {
   href: string;
-  children?: JSX.Element | JSX.Element[];
+  children?: ReactNode;
 }
 
 export default function AnchorButton({ href, children }: Props) {

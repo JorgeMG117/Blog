@@ -1,4 +1,4 @@
-import algoliasearch from "algoliasearch";
+import { algoliasearch } from "algoliasearch";
 import { BlogIndex } from "../../constants";
 import { ApiResponse, SearchHit } from "../../types/api/types";
 
@@ -32,7 +32,7 @@ type AlgoliaQuery = {
 function parseQuery(query: string): AlgoliaQuery {
   // Support multiple tags formatted as "tag:tag1,tag2,tag3"
   if (query.toLowerCase().startsWith("tag:")) {
-    var filters = query
+    const filters = query
       .replace(/,\s*$/, "") // Remove trailing commas
       .substring(4)
       .split(",")
@@ -54,10 +54,16 @@ async function search(query: AlgoliaQuery) {
     process.env.ALGOLIA_SEARCH_API_KEY!
   );
 
-  const index = client.initIndex(BlogIndex);
   if (!query.filters) {
-    return (await index.search<SearchHit>(query.query)).hits;
+    return (await client.searchSingleIndex<SearchHit>({
+      indexName: BlogIndex,
+      searchParams: { query: query.query }
+    })).hits;
   }
 
-  return (await index.search<SearchHit>("", { filters: query.filters })).hits;
+  return (await client.searchSingleIndex<SearchHit>({
+    indexName: BlogIndex,
+    searchParams: { query: "", filters: query.filters }
+  })).hits;
 }
+
