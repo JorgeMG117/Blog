@@ -58,6 +58,19 @@ export type PostPatchFields =
 
 export const parseJsonRequest = <T>(req: string): T => JSON.parse(req) as T;
 
+export interface WolCommand {
+  id: string;
+  action: string;
+  createdAt: Date;
+  expiresAt: Date;
+  deliveredAt: Date | null;
+  ackedAt: Date | null;
+}
+
+export interface WolStatus {
+  command: WolCommand | null;
+}
+
 export interface Paged<T> {
   data: T[];
   page: number;

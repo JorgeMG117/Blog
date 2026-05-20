@@ -56,3 +56,22 @@ create table if not exists "user".user (
 alter table "user".user
   add constraint PK_user_user
     primary key (id);
+
+-- Wake-on-LAN command queue
+create schema if not exists wol;
+
+create table if not exists wol.command (
+  id uuid not null default gen_random_uuid(),
+  action varchar(64) not null default 'wake',
+  created_at timestamp not null default now(),
+  expires_at timestamp not null,
+  delivered_at timestamp null,
+  acked_at timestamp null
+);
+
+alter table wol.command
+  add constraint PK_wol_command
+    primary key (id);
+
+grant usage on schema wol to personal_site_app;
+grant select, insert, update on wol.command to personal_site_app;
