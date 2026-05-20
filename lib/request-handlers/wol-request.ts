@@ -26,9 +26,10 @@ function toWolCommand(row: DbCommand): WolCommand {
 }
 
 export async function createWolCommand(): Promise<WolCommand> {
+  const expiresAt = new Date(Date.now() + EXPIRE_MINUTES * 60 * 1000);
   const rows = await sql<DbCommand[]>`
     insert into wol.command (action, expires_at)
-    values ('wake', now() + interval '${sql.unsafe(String(EXPIRE_MINUTES))} minutes')
+    values ('wake', ${expiresAt})
     returning id, action, created_at, expires_at, delivered_at, acked_at
   `;
   return toWolCommand(rows[0]);
@@ -43,7 +44,7 @@ export async function getActiveWolCommand(): Promise<WolCommand | null> {
       select id from wol.command
       where expires_at > now()
         and acked_at is null
-        and (delivered_at is null or delivered_at < now() - interval '${sql.unsafe(String(REDELIVER_GUARD_SECONDS))} seconds')
+        and (delivered_at is null or delivered_at < ${new Date(Date.now() - REDELIVER_GUARD_SECONDS * 1000)})
       order by created_at desc
       limit 1
     )

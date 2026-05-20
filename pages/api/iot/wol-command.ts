@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import { NextApiRequest, NextApiResponse } from "next";
-import { handleError } from "../../errorHandler";
-import { getActiveWolCommand } from "../../../../lib/request-handlers/wol-request";
+import { handleError } from "../errorHandler";
+import { getActiveWolCommand } from "../../../lib/request-handlers/wol-request";
 
 function requireBearerToken(req: NextApiRequest, expected: string): boolean {
   const header = req.headers.authorization ?? "";
