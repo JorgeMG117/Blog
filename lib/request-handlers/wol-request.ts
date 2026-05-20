@@ -27,6 +27,11 @@ function toWolCommand(row: DbCommand): WolCommand {
 
 export async function createWolCommand(): Promise<WolCommand> {
   const expiresAt = new Date(Date.now() + EXPIRE_MINUTES * 60 * 1000);
+  const cutoff = new Date(Date.now() - 24 * 60 * 60 * 1000);
+
+  // Prune commands older than 24 hours to keep the table small
+  await sql`delete from wol.command where created_at < ${cutoff}`;
+
   const rows = await sql<DbCommand[]>`
     insert into wol.command (action, expires_at)
     values ('wake', ${expiresAt})

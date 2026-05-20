@@ -40,11 +40,19 @@ export default function WolPage() {
     error: null,
   });
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const resetRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const stageRef = useRef<Stage>("idle");
+  const [countdown, setCountdown] = useState<number | null>(null);
   const [log, setLog] = useState<string[]>(["> system online", "> waiting for command..."]);
 
   const pushLog = useCallback((line: string) => {
     setLog((prev) => [...prev.slice(-19), `> ${line}`]);
   }, []);
+
+  // Keep stageRef in sync so fetchStatus can read current stage without stale closures
+  useEffect(() => {
+    stageRef.current = cmd.stage;
+  }, [cmd.stage]);
 
   // Load token from localStorage on mount
   useEffect(() => {
@@ -59,6 +67,22 @@ export default function WolPage() {
     }
   }, []);
 
+  const scheduleReset = useCallback(() => {
+    if (resetRef.current !== null) clearInterval(resetRef.current);
+    setCountdown(10);
+    resetRef.current = setInterval(() => {
+      setCountdown((c) => {
+        if (c === null || c <= 1) {
+          clearInterval(resetRef.current!);
+          resetRef.current = null;
+          setCmd({ id: null, stage: "idle", expiresAt: null, deliveredAt: null, ackedAt: null, error: null });
+          return null;
+        }
+        return c - 1;
+      });
+    }, 1000);
+  }, []);
+
   const fetchStatus = useCallback(
     async (currentToken: string) => {
       try {
@@ -70,37 +94,41 @@ export default function WolPage() {
         const command: WolCommand | null = body.data?.command ?? null;
         if (!command) return;
 
-        setCmd((prev) => {
-          let stage: Stage = prev.stage;
+        const prevStage = stageRef.current;
+        let stage: Stage = prevStage;
 
-          if (command.ackedAt) {
-            stage = "acked";
-          } else if (command.deliveredAt) {
-            stage = "delivered";
-          } else if (command.expiresAt && new Date(command.expiresAt) > new Date()) {
-            stage = "pending";
-          }
+        if (command.ackedAt) {
+          stage = "acked";
+        } else if (command.deliveredAt) {
+          stage = "delivered";
+        } else if (command.expiresAt && new Date(command.expiresAt) > new Date()) {
+          stage = "pending";
+        }
 
-          if (stage === "acked" && prev.stage !== "acked") {
-            pushLog("ESP32 acknowledged — WoL packets sent!");
-          } else if (stage === "delivered" && prev.stage === "pending") {
-            pushLog("ESP32 picked up the command");
-          }
+        if (stage === "acked" && prevStage !== "acked") {
+          pushLog("ESP32 acknowledged — WoL packets sent!");
+        } else if (stage === "delivered" && prevStage === "pending") {
+          pushLog("ESP32 picked up the command");
+        }
 
-          return {
-            ...prev,
-            id: command.id,
-            stage,
-            expiresAt: command.expiresAt ? String(command.expiresAt) : null,
-            deliveredAt: command.deliveredAt ? String(command.deliveredAt) : null,
-            ackedAt: command.ackedAt ? String(command.ackedAt) : null,
-          };
-        });
+        setCmd((prev) => ({
+          ...prev,
+          id: command.id,
+          stage,
+          expiresAt: command.expiresAt ? String(command.expiresAt) : null,
+          deliveredAt: command.deliveredAt ? String(command.deliveredAt) : null,
+          ackedAt: command.ackedAt ? String(command.ackedAt) : null,
+        }));
+
+        if (stage === "acked" && prevStage !== "acked") {
+          stopPolling();
+          scheduleReset();
+        }
       } catch {
         // ignore polling errors silently
       }
     },
-    [pushLog]
+    [pushLog, stopPolling, scheduleReset]
   );
 
   const startPolling = useCallback(
@@ -111,8 +139,11 @@ export default function WolPage() {
     [fetchStatus, stopPolling]
   );
 
-  // Clean up polling on unmount
-  useEffect(() => () => stopPolling(), [stopPolling]);
+  // Clean up polling and reset timer on unmount
+  useEffect(() => () => {
+    stopPolling();
+    if (resetRef.current !== null) clearInterval(resetRef.current);
+  }, [stopPolling]);
 
   const handlePinSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -126,6 +157,13 @@ export default function WolPage() {
 
   const handleWake = async () => {
     if (!token || cmd.stage === "requesting") return;
+
+    // Cancel any pending auto-reset countdown
+    if (resetRef.current !== null) {
+      clearInterval(resetRef.current);
+      resetRef.current = null;
+      setCountdown(null);
+    }
 
     setCmd({ id: null, stage: "requesting", expiresAt: null, deliveredAt: null, ackedAt: null, error: null });
     pushLog("sending wake request...");
@@ -278,11 +316,15 @@ export default function WolPage() {
                 </svg>
               </button>
               <div className={`mt-4 text-xs tracking-widest ${stageColors[cmd.stage]}`}>
+                {cmd.stage === "acked" && countdown !== null
+                  ? `DONE ✓ — READY IN ${countdown}s`
+                  : cmd.stage === "acked"
+                  ? "DONE — WoL SENT ✓"
+                  : null}
                 {cmd.stage === "idle" && "READY"}
                 {cmd.stage === "requesting" && "REQUESTING..."}
                 {cmd.stage === "pending" && "WAITING FOR ESP32..."}
                 {cmd.stage === "delivered" && "ESP32 SENDING WoL..."}
-                {cmd.stage === "acked" && "DONE — WoL SENT ✓"}
                 {cmd.stage === "error" && (cmd.error ?? "ERROR")}
               </div>
             </div>
