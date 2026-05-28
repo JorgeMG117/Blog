@@ -4,6 +4,10 @@
 <head>
     <meta charSet="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://www.google-analytics.com" />
+    <link rel="preload" as="image" href="/profile.jpg" imagesrcset="/profile.avif 1x, /profile.webp 1x, /profile.jpg 1x" fetchpriority="high" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4FFCWEC2WB"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() {
@@ -15,6 +19,34 @@
             page_path: window.location.pathname,
         });
     </script>
+    <style>
+        section[data-cv-section] {
+            content-visibility: auto;
+            contain-intrinsic-size: 800px 800px;
+        }
+
+        @font-face {
+            font-family: "__inter_20b187";
+            src: url("/static/media/730e8169368baf37-s.p.woff2") format("woff2");
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "__inter_20b187";
+            src: url("/static/media/f1f0c35b32161446-s.p.woff2") format("woff2");
+            font-display: swap;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: "__inter_20b187";
+            src: url("/static/media/dc792b508e6f91c7-s.p.woff2") format("woff2");
+            font-display: swap;
+            font-weight: 600;
+            font-style: normal;
+        }
+    </style>
     <title>Jorge Martinez</title>
     <meta name="description"
         content="Jorge Martinez is a software engineer who crafts elegant solutions through high-quality software." />
@@ -35,35 +67,11 @@
         content="Jorge Martinez is a software engineer who crafts elegant solutions through high-quality software." />
     <meta property="twitter:url" content="https://jorgemartinezgil.com/" />
     <meta property="twitter:image" content="https://jorgemartinezgil.com/profile.jpg" />
-    <link rel="icon" type="image/png" href="profile.jpg">
-    <link rel="icon" type="image/png" sizes="512x192" href="/favicon/android-chrome-512x512.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-chrome-192x192.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
-    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <link rel="icon" href="/favicon.ico" />
     <meta name="msapplication-TileColor" content="#0f172a" />
     <meta name="theme-color" content="#0f172a" />
     <meta name="google-site-verification" content="DCl7VAf9tcz6eD9gb67NfkNnJ1PKRNcg8qQiwpbx9Lk" />
     <meta name="next-head-count" content="29" />
-    <link rel="preload" href="static/media/730e8169368baf37-s.p.woff2" as="font" type="font/woff2"
-        crossorigin="anonymous" data-next-font="size-adjust" />
-    <link rel="preload" href="static/media/f1f0c35b32161446-s.p.woff2" as="font" type="font/woff2"
-        crossorigin="anonymous" data-next-font="size-adjust" />
-    <link rel="preload" href="static/media/d593a8df799d4ab1-s.p.woff2" as="font" type="font/woff2"
-        crossorigin="anonymous" data-next-font="size-adjust" />
-    <link rel="preload" href="static/media/dc792b508e6f91c7-s.p.woff2" as="font" type="font/woff2"
-        crossorigin="anonymous" data-next-font="size-adjust" />
-    <link rel="preload" href="static/media/84d3493a9fd22f1c-s.p.woff2" as="font" type="font/woff2"
-        crossorigin="anonymous" data-next-font="size-adjust" />
-    <link rel="preload" href="static/media/fcb100c7607696fd-s.p.woff2" as="font" type="font/woff2"
-        crossorigin="anonymous" data-next-font="size-adjust" />
-    <link rel="preload" href="static/media/d90f295d0c348006-s.p.woff2" as="font" type="font/woff2"
-        crossorigin="anonymous" data-next-font="size-adjust" />
-    <link rel="preload" href="static/media/579e0f95cacfae57-s.p.woff2" as="font" type="font/woff2"
-        crossorigin="anonymous" data-next-font="size-adjust" />
-    <link rel="preload" href="static/media/828a494e04a45cbd-s.p.woff2" as="font" type="font/woff2"
-        crossorigin="anonymous" data-next-font="size-adjust" />
 
     <link rel="stylesheet" href="static/css/style.css" data-n-g="" />
 
@@ -106,7 +114,11 @@
                             <p class="mt-4 max-w-xs leading-normal">Crafting Elegant Solutions Through High-Quality
                                 Software.</p>
                             <div class="profile-pic-container">
-                                <img src="profile.jpg" alt="Jorge Martinez" class="profile-pic">
+                                <picture>
+                                    <source srcset="/profile.avif" type="image/avif">
+                                    <source srcset="/profile.webp" type="image/webp">
+                                    <img src="/profile.jpg" alt="Jorge Martinez" class="profile-pic" width="130" height="130" decoding="async" fetchpriority="high">
+                                </picture>
                             </div>
                             <nav class="nav hidden lg:block" aria-label="In-page jump links">
                                 <ul class="mt-16 w-max">
@@ -228,7 +240,7 @@ https://www.asciiart.eu/text-to-ascii-art
 /_/   \_\_.__/ \___/ \__,_|\__|                      
                             -->
                         <section id="about" class="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24"
-                            aria-label="About me">
+                            aria-label="About me" data-cv-section>
                             <div
                                 class="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-slate-900/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
                                 <h2 class="text-sm font-bold uppercase tracking-widest text-slate-200 lg:sr-only">About
@@ -313,7 +325,7 @@ https://www.asciiart.eu/text-to-ascii-art
                             -->
 
                         <section id="experience" class="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24"
-                            aria-label="Work experience">
+                            aria-label="Work experience" data-cv-section>
                             <div
                                 class="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-slate-900/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
                                 <h2 class="text-sm font-bold uppercase tracking-widest text-slate-200 lg:sr-only">
@@ -625,7 +637,7 @@ https://www.asciiart.eu/text-to-ascii-art
                             -->
 
                         <section id="projects" class="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24"
-                            aria-label="Selected projects">
+                            aria-label="Selected projects" data-cv-section>
                             <div
                                 class="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-slate-900/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
                                 <h2 class="text-sm font-bold uppercase tracking-widest text-slate-200 lg:sr-only">
@@ -925,7 +937,7 @@ https://www.asciiart.eu/text-to-ascii-art
 |_|    \__,_|_.__/|_|_|\___\__,_|\__|_|\___/|_| |_|___/                   
                             -->
                         <section id="publications" class="mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24"
-                            aria-label="Publications">
+                            aria-label="Publications" data-cv-section>
                             <div
                                 class="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-slate-900/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
                                 <h2 class="text-sm font-bold uppercase tracking-widest text-slate-200 lg:sr-only">
@@ -1136,7 +1148,6 @@ https://www.asciiart.eu/text-to-ascii-art
             </div>
         </div>
     </div>
-    <script src="static/js/script.js"></script>
 </body>
 
 </html>
