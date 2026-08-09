@@ -2,11 +2,11 @@ export const missionConfig = {
   storageKey: "project_istanbul_progress",
   version: 2,
   codes: [
-    { id: "gaming", icon: "🎮", label: "Gaming Key", value: "1" },
-    { id: "reflection", icon: "🪞", label: "Reflection Key", value: "2" },
-    { id: "heart", icon: "❤️", label: "Heart Key", value: "3" },
-    { id: "coffee", icon: "☕", label: "Coffee Key", value: "4" },
-    { id: "travel", icon: "✈️", label: "Travel Key", value: "5" },
+    { id: "bed", icon: "🛏️", label: "Bed Key", value: "1" },
+    { id: "suitcase", icon: "🧳", label: "Suitcase Key", value: "2" },
+    { id: "chest", icon: "👕", label: "Chest Key", value: "3" },
+    { id: "flowers", icon: "💐", label: "Flowers Key", value: "4" },
+    { id: "cream", icon: "🧴", label: "Cream Key", value: "5" },
   ],
   cipher: ["T", "B", "Y", "C", "L", "Y"],
   masterKey: "7",
@@ -331,8 +331,14 @@ export function matchVoicePhrase(
   const significantWords = targetWords.filter(
     (word) => word.length >= 4 && new Set(word).size > 1,
   );
+  const transcriptCandidates = transcriptWords.flatMap((word, index) => [
+    word,
+    index < transcriptWords.length - 1
+      ? `${word}${transcriptWords[index + 1]}`
+      : word,
+  ]);
   const matchedSignificantWords = significantWords.filter((targetWord) =>
-    transcriptWords.some((word) => similarity(word, targetWord) >= 0.8),
+    transcriptCandidates.some((word) => similarity(word, targetWord) >= 0.8),
   ).length;
   const significantWordCoverage = significantWords.length
     ? matchedSignificantWords / significantWords.length
