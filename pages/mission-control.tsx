@@ -444,7 +444,21 @@ export default function MissionControl({
   );
 }
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async ({
+  req,
+  res,
+}: GetServerSidePropsContext) => {
+  const { user } = await getIronSession<SessionData>(req, res, sessionOptions);
+
+  if (!user) {
+    return {
+      redirect: {
+        destination: "/content/login",
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: { initialState: await getMissionControlState() },
   };
