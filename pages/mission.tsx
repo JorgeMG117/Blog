@@ -7,15 +7,18 @@ import {
   useState,
 } from "react";
 
+import type { ApiResponse } from "../types/api/types";
 import {
   caesarDecrypt,
   ClueId,
-  countdownTo,
-  initialProgress,
-  isTimeReached,
+  createInitialProgress,
+  defaultMissionControlState,
   matchesAny,
   missionConfig,
+  MissionControlState,
+  MissionForcedCompleted,
   MissionProgress,
+  MissionRuntimeConfig,
   MissionScreen,
   parseDurationMinutes,
   parseProgress,
@@ -49,75 +52,6 @@ declare global {
     webkitSpeechRecognition?: SpeechRecognitionConstructor;
   }
 }
-
-const triviaQuestions = [
-  {
-    prompt: "Near which major US city did Jorge study?",
-    placeholder: "City",
-    validate: (value: string) =>
-      matchesAny(value, ["Washington", "Washington DC", "Washington D.C.", "DC"]),
-  },
-  {
-    prompt: "In which Nintendo Switch game am I going to destroy you?",
-    placeholder: "Game",
-    validate: (value: string) => matchesAny(value, ["Mario Kart"]),
-  },
-  {
-    prompt: "Which is officially the worst country in the world?",
-    placeholder: "Country",
-    validate: (value: string) => matchesAny(value, ["Georgia"]),
-  },
-  {
-    prompt: "How many minutes was our longest videocall?",
-    placeholder: "e.g. 5h15min",
-    validate: (value: string) => {
-      const minutes = parseDurationMinutes(value);
-      return minutes !== null && minutes >= 300 && minutes <= 330;
-    },
-  },
-  {
-    prompt: "Could you tackle Jorge to the ground if he actually tried to stop you?",
-    placeholder: "Yes / No",
-    validate: (value: string) =>
-      matchesAny(value, ["No", "No way", "Of course not", "Impossible"]),
-  },
-] as const;
-
-const voicePhrases = [
-  "Mañana",
-  "Jorge es mucho mejor que yo a los videojuegos",
-  "Quiero comer kebab",
-] as const;
-
-const clueMeta: Record<
-  ClueId | "extraction",
-  { title: string; subtitle: string; time: string; icon: string }
-> = {
-  trivia: {
-    title: "CLUE 1: SECURITY TRIVIA",
-    subtitle: "PERSONAL INTELLIGENCE CHECK",
-    time: missionConfig.schedule.trivia,
-    icon: "01",
-  },
-  voice: {
-    title: "CLUE 2: VOICE RECOGNITION",
-    subtitle: "SPANISH AUDIO VERIFICATION",
-    time: missionConfig.schedule.voice,
-    icon: "02",
-  },
-  history: {
-    title: "CLUE 3: ISTANBUL DOSSIER",
-    subtitle: "HISTORICAL INTELLIGENCE",
-    time: missionConfig.schedule.history,
-    icon: "03",
-  },
-  extraction: {
-    title: "MASTER KEY EXTRACTION",
-    subtitle: "PHYSICAL ASSET REQUIRED",
-    time: missionConfig.schedule.extraction,
-    icon: "⚠",
-  },
-};
 
 function tone(kind: "click" | "error" | "success", enabled: boolean) {
   if (!enabled || typeof window === "undefined") return;
@@ -170,18 +104,45 @@ function ScreenHeader({
   );
 }
 
+function applyForcedProgress(
+  progress: MissionProgress,
+  forcedCompleted: MissionForcedCompleted,
+): MissionProgress {
+  const completed = {
+    trivia: progress.completed.trivia || forcedCompleted.trivia,
+    voice: progress.completed.voice || forcedCompleted.voice,
+    history: progress.completed.history || forcedCompleted.history,
+  };
+
+  return {
+    ...progress,
+    roomUnlocked:
+      progress.roomUnlocked ||
+      forcedCompleted.trivia ||
+      forcedCompleted.voice ||
+      forcedCompleted.history ||
+      forcedCompleted.extraction,
+    completed,
+    finalRevealed: progress.finalRevealed || forcedCompleted.extraction,
+  };
+}
+
 export default function MissionPage() {
-  const [progress, setProgress] = useState<MissionProgress>(initialProgress);
+  const [control, setControl] = useState<MissionControlState>(defaultMissionControlState);
+  const [progress, setProgress] = useState<MissionProgress>(
+    createInitialProgress(defaultMissionControlState.progressVersion),
+  );
   const [hydrated, setHydrated] = useState(false);
   const [screen, setScreen] = useState<MissionScreen>("access");
-  const [now, setNow] = useState(() => new Date());
   const [accessCodes, setAccessCodes] = useState(
-    missionConfig.codes.map(() => ""),
+    defaultMissionControlState.config.codes.map(() => ""),
   );
   const [accessError, setAccessError] = useState(false);
-  const [answers, setAnswers] = useState(triviaQuestions.map(() => ""));
+  const [answers, setAnswers] = useState(
+    defaultMissionControlState.config.triviaQuestions.map(() => ""),
+  );
   const [answerErrors, setAnswerErrors] = useState<boolean[]>(
-    triviaQuestions.map(() => false),
+    defaultMissionControlState.config.triviaQuestions.map(() => false),
   );
   const [historyAnswer, setHistoryAnswer] = useState("");
   const [historyError, setHistoryError] = useState(false);
@@ -190,22 +151,56 @@ export default function MissionPage() {
   const [overrideClicks, setOverrideClicks] = useState<number[]>([]);
   const [revealedLetters, setRevealedLetters] = useState(0);
 
+  const runtimeConfig = control.config;
+
   useEffect(() => {
-    const stored = parseProgress(localStorage.getItem(missionConfig.storageKey));
-    setProgress(stored);
-    setScreen(stored.finalRevealed ? "success" : stored.roomUnlocked ? "dashboard" : "access");
-    setHydrated(true);
+    let cancelled = false;
+
+    async function hydrateMission() {
+      let nextControl = defaultMissionControlState;
+
+      try {
+        const response = await fetch("/api/mission/config");
+        const result = (await response.json()) as ApiResponse<MissionControlState>;
+        if (result.isSuccess && result.data) nextControl = result.data;
+      } catch {
+        nextControl = defaultMissionControlState;
+      }
+
+      if (cancelled) return;
+
+      const stored = parseProgress(
+        localStorage.getItem(missionConfig.storageKey),
+        nextControl.progressVersion,
+      );
+      const nextProgress = applyForcedProgress(stored, nextControl.forcedCompleted);
+
+      setControl(nextControl);
+      setAccessCodes(nextControl.config.codes.map(() => ""));
+      setAnswers(nextControl.config.triviaQuestions.map(() => ""));
+      setAnswerErrors(nextControl.config.triviaQuestions.map(() => false));
+      setProgress(nextProgress);
+      setScreen(
+        nextProgress.finalRevealed
+          ? "success"
+          : nextProgress.roomUnlocked
+            ? "dashboard"
+            : "access",
+      );
+      setHydrated(true);
+    }
+
+    void hydrateMission();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
     if (!hydrated) return;
     localStorage.setItem(missionConfig.storageKey, JSON.stringify(progress));
   }, [hydrated, progress]);
-
-  useEffect(() => {
-    const timer = window.setInterval(() => setNow(new Date()), 1000);
-    return () => window.clearInterval(timer);
-  }, []);
 
   useEffect(() => {
     document.documentElement.classList.add("mission-root");
@@ -221,7 +216,7 @@ export default function MissionPage() {
     setRevealedLetters(0);
     const timer = window.setInterval(() => {
       setRevealedLetters((current) => {
-        if (current >= missionConfig.cipher.length) {
+        if (current >= runtimeConfig.final.cipher.length) {
           window.clearInterval(timer);
           return current;
         }
@@ -229,7 +224,7 @@ export default function MissionPage() {
       });
     }, 260);
     return () => window.clearInterval(timer);
-  }, [screen]);
+  }, [runtimeConfig.final.cipher.length, screen]);
 
   const completeClue = useCallback(
     (clue: ClueId) => {
@@ -244,26 +239,23 @@ export default function MissionPage() {
   );
 
   const availability = useMemo(() => {
-    const trivia = isTimeReached(missionConfig.schedule.trivia, now);
-    const voice =
-      isTimeReached(missionConfig.schedule.voice, now) &&
-      progress.completed.trivia;
-    const history =
-      isTimeReached(missionConfig.schedule.history, now) &&
-      progress.completed.voice;
-    const extraction =
-      isTimeReached(missionConfig.schedule.extraction, now) &&
-      progress.completed.history;
+    const trivia = true;
+    const voice = progress.completed.trivia;
+    const history = progress.completed.voice;
+    const extraction = progress.completed.history;
     return { trivia, voice, history, extraction };
-  }, [now, progress.completed]);
+  }, [progress.completed]);
 
-  const decrypted = caesarDecrypt(missionConfig.cipher.join(""), 7);
-  const finalWord = `${decrypted[0]}Ü${decrypted.slice(2)}`;
+  const decrypted = caesarDecrypt(
+    runtimeConfig.final.cipher.join(""),
+    runtimeConfig.final.caesarShift,
+  );
+  const finalWord = runtimeConfig.final.displayWord || decrypted;
 
   const submitAccess = (event: React.FormEvent) => {
     event.preventDefault();
     const valid = accessCodes.every(
-      (code, index) => code === missionConfig.codes[index].value,
+      (code, index) => code === runtimeConfig.codes[index]?.value,
     );
     if (!valid) {
       setAccessError(true);
@@ -279,9 +271,19 @@ export default function MissionPage() {
 
   const submitTrivia = (event: React.FormEvent) => {
     event.preventDefault();
-    const errors = answers.map(
-      (answer, index) => !triviaQuestions[index].validate(answer),
-    );
+    const errors = answers.map((answer, index) => {
+      const question = runtimeConfig.triviaQuestions[index];
+      if (!question) return true;
+      const duration = question.durationRange
+        ? parseDurationMinutes(answer)
+        : null;
+
+      return question.durationRange
+        ? duration === null ||
+            duration < question.durationRange.minMinutes ||
+            duration > question.durationRange.maxMinutes
+        : !matchesAny(answer, question.acceptedAnswers);
+    });
     setAnswerErrors(errors);
     if (errors.some(Boolean)) {
       tone("error", progress.soundEnabled);
@@ -293,7 +295,7 @@ export default function MissionPage() {
 
   const submitHistory = (event: React.FormEvent) => {
     event.preventDefault();
-    if (!matchesAny(historyAnswer, ["Medusa"], 0.8)) {
+    if (!matchesAny(historyAnswer, [runtimeConfig.history.answer], 0.8)) {
       setHistoryError(true);
       tone("error", progress.soundEnabled);
       return;
@@ -304,7 +306,7 @@ export default function MissionPage() {
 
   const submitMasterKey = (event: React.FormEvent) => {
     event.preventDefault();
-    if (masterKey.trim() !== missionConfig.masterKey) {
+    if (masterKey.trim() !== runtimeConfig.extraction.masterKey) {
       setMasterError(true);
       tone("error", progress.soundEnabled);
       navigator.vibrate?.([100, 60, 100]);
@@ -347,6 +349,7 @@ export default function MissionPage() {
           content="Classified mission control interface."
         />
         <meta name="theme-color" content="#0b0f19" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       </Head>
 
       <main className={`mission-shell ${accessError ? "access-error" : ""}`}>
@@ -374,12 +377,12 @@ export default function MissionPage() {
               decryption system.
             </p>
             <form onSubmit={submitAccess} className="code-grid">
-              {missionConfig.codes.map((code, index) => (
+              {runtimeConfig.codes.map((code, index) => (
                 <label className="code-field" key={code.id}>
                   <span className="code-icon">{code.icon}</span>
                   <span>{code.label}</span>
                   <input
-                    value={accessCodes[index]}
+                    value={accessCodes[index] ?? ""}
                     onChange={(event) => {
                       const value = event.target.value.replace(/\D/g, "").slice(0, 2);
                       setAccessCodes((current) =>
@@ -397,7 +400,7 @@ export default function MissionPage() {
               ))}
               <button
                 className="primary-button"
-                disabled={accessCodes.some((code) => !code)}
+                disabled={accessCodes.length !== runtimeConfig.codes.length || accessCodes.some((code) => !code)}
                 type="submit"
               >
                 INITIALIZE DECRYPTION <span>→</span>
@@ -413,7 +416,7 @@ export default function MissionPage() {
           <Dashboard
             progress={progress}
             availability={availability}
-            now={now}
+            runtimeConfig={runtimeConfig}
             onOpen={(target) => {
               tone("click", progress.soundEnabled);
               setScreen(target);
@@ -427,11 +430,11 @@ export default function MissionPage() {
             <div className="panel">
               <p className="panel-kicker">IDENTITY VERIFICATION // FIVE DATA POINTS</p>
               <form onSubmit={submitTrivia} className="trivia-form">
-                {triviaQuestions.map((question, index) => (
+                {runtimeConfig.triviaQuestions.map((question, index) => (
                   <label key={question.prompt} className={answerErrors[index] ? "invalid" : ""}>
                     <span><b>0{index + 1}</b>{question.prompt}</span>
                     <input
-                      value={answers[index]}
+                      value={answers[index] ?? ""}
                       onChange={(event) =>
                         setAnswers((current) =>
                           current.map((answer, answerIndex) =>
@@ -452,6 +455,7 @@ export default function MissionPage() {
 
         {screen === "voice" && (
           <VoiceScreen
+            phrases={runtimeConfig.voicePhrases}
             soundEnabled={progress.soundEnabled}
             onBack={() => setScreen("dashboard")}
             onComplete={() => completeClue("voice")}
@@ -464,19 +468,15 @@ export default function MissionPage() {
             <div className="dossier panel">
               <div className="dossier-stamp">ARCHIVE<br />532 A.D.</div>
               <p className="panel-kicker">CLASSIFIED HISTORICAL RECORD</p>
-              <h2>THE SUNKEN PALACE</h2>
-              <p className="riddle">
-                “Deep underground in Istanbul lies a sunken palace supported by
-                336 columns. Two of them rest on the head of a mythological
-                creature placed upside down. What is the name of this creature?”
-              </p>
+              <h2>{runtimeConfig.history.title}</h2>
+              <p className="riddle">“{runtimeConfig.history.riddle}”</p>
               <form onSubmit={submitHistory}>
                 <label className={historyError ? "invalid single-answer" : "single-answer"}>
                   <span>SUBJECT IDENTIFICATION</span>
                   <input
                     value={historyAnswer}
                     onChange={(event) => setHistoryAnswer(event.target.value)}
-                    placeholder="INPUT NAME"
+                    placeholder={runtimeConfig.history.placeholder}
                   />
                   {historyError && <em>IDENTIFICATION FAILED</em>}
                 </label>
@@ -493,12 +493,12 @@ export default function MissionPage() {
             <h2>MASTER KEY REQUIRED</h2>
             <p>The digital system cannot complete the decryption. The Master Key is physical.</p>
             <div className="physical-order">
-              LOOK INSIDE YOUR BAG RIGHT NOW.<br />
-              <strong>FIND THE HANDMADE ARTIFACT.</strong>
+              {runtimeConfig.extraction.instruction}<br />
+              <strong>{runtimeConfig.extraction.emphasis}</strong>
             </div>
             <form onSubmit={submitMasterKey} className="master-form">
               <label>
-                Enter the Master Key number found on the back of the heart:
+                {runtimeConfig.extraction.masterKeyPrompt}
                 <input
                   value={masterKey}
                   onChange={(event) => setMasterKey(event.target.value.replace(/\D/g, "").slice(0, 2))}
@@ -526,26 +526,25 @@ export default function MissionPage() {
                 <span key={`${letter}-${index}`}>
                   {index < revealedLetters
                     ? letter
-                    : missionConfig.cipher[index]}
+                    : runtimeConfig.final.cipher[index] ?? letter}
                 </span>
               ))}
             </div>
             <div className="success-line" />
             <p className="unlocked-label">LOCATION UNLOCKED</p>
-            <h1>MÜRVER RESTAURANT</h1>
+            <h1>{runtimeConfig.final.restaurantName}</h1>
             <div className="reservation">
               <span>RESERVATION TIME</span>
-              <strong>20:45</strong>
+              <strong>{runtimeConfig.final.reservationTime}</strong>
             </div>
             <a
               className="gold-button map-button"
-              href={missionConfig.mapsUrl}
+              href={runtimeConfig.final.mapsUrl}
               target="_blank"
               rel="noreferrer"
             >
               OPEN SECURE COORDINATES ↗
             </a>
-            <p className="final-message">See you at dinner, my girlfriend.</p>
           </section>
         )}
 
@@ -563,18 +562,18 @@ export default function MissionPage() {
 function Dashboard({
   progress,
   availability,
-  now,
+  runtimeConfig,
   onOpen,
 }: {
   progress: MissionProgress;
   availability: Record<ClueId | "extraction", boolean>;
-  now: Date;
+  runtimeConfig: MissionRuntimeConfig;
   onOpen: (screen: MissionScreen) => void;
 }) {
   const segments = [
-    progress.completed.trivia ? ["T", "B"] : ["_", "_"],
-    progress.completed.voice ? ["Y", "C"] : ["_", "_"],
-    progress.completed.history ? ["L", "Y"] : ["_", "_"],
+    progress.completed.trivia ? runtimeConfig.final.cipher.slice(0, 2) : ["_", "_"],
+    progress.completed.voice ? runtimeConfig.final.cipher.slice(2, 4) : ["_", "_"],
+    progress.completed.history ? runtimeConfig.final.cipher.slice(4, 6) : ["_", "_"],
   ].flat();
   const rows: (ClueId | "extraction")[] = ["trivia", "voice", "history", "extraction"];
 
@@ -584,7 +583,7 @@ function Dashboard({
       <div className="target-bar">
         <span>TARGET</span>
         <strong>SECRET DINNER LOCATION</strong>
-        <b>20:45</b>
+        <b>{runtimeConfig.final.reservationTime}</b>
       </div>
       <div className="cipher-panel">
         <p>ENCRYPTED TARGET DESIGNATION</p>
@@ -593,7 +592,7 @@ function Dashboard({
       </div>
       <div className="clue-list">
         {rows.map((id) => {
-          const meta = clueMeta[id];
+          const meta = runtimeConfig.clueMeta[id];
           const completed = id !== "extraction" && progress.completed[id];
           const available = availability[id];
           const lockedReason =
@@ -602,7 +601,7 @@ function Dashboard({
               (id === "history" && !progress.completed.voice) ||
               (id === "extraction" && !progress.completed.history))
               ? "PREVIOUS INTEL REQUIRED"
-              : `T-${countdownTo(meta.time, now)}`;
+              : "READY AFTER PREVIOUS INTEL";
           return (
             <button
               key={id}
@@ -626,7 +625,7 @@ function Dashboard({
       {progress.completed.history && !availability.extraction && (
         <p className="all-collected">
           ALL DIGITAL DATA COLLECTED. PROCEED TO SUNSET SPOT FOR PHYSICAL
-          EXTRACTION AT 19:30.
+          EXTRACTION AT {runtimeConfig.clueMeta.extraction.time}.
         </p>
       )}
       {progress.overrideUsed && <p className="override-notice">EMERGENCY OVERRIDE ACTIVE</p>}
@@ -635,15 +634,17 @@ function Dashboard({
 }
 
 function VoiceScreen({
+  phrases,
   onBack,
   onComplete,
   soundEnabled,
 }: {
+  phrases: string[];
   onBack: () => void;
   onComplete: () => void;
   soundEnabled: boolean;
 }) {
-  const [verified, setVerified] = useState([false, false, false]);
+  const [verified, setVerified] = useState(() => phrases.map(() => false));
   const [active, setActive] = useState<number | null>(null);
   const [transcript, setTranscript] = useState("");
   const [error, setError] = useState("");
@@ -651,6 +652,10 @@ function VoiceScreen({
   const supported =
     typeof window !== "undefined" &&
     Boolean(window.SpeechRecognition || window.webkitSpeechRecognition);
+
+  useEffect(() => {
+    setVerified(phrases.map(() => false));
+  }, [phrases]);
 
   const startListening = (index: number) => {
     const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -665,7 +670,7 @@ function VoiceScreen({
     recognition.onresult = (event) => {
       const result = event.results[0][0].transcript;
       setTranscript(result);
-      const score = similarity(result, voicePhrases[index]);
+      const score = similarity(result, phrases[index]);
       if (score >= 0.7) {
         tone("success", soundEnabled);
         setVerified((current) => {
@@ -713,8 +718,8 @@ function VoiceScreen({
         </p>
         {!supported && <p className="voice-error">VOICE MODULE NOT SUPPORTED. USE EMERGENCY OVERRIDE.</p>}
         <div className="phrase-list">
-          {voicePhrases.map((phrase, index) => (
-            <div key={phrase} className={verified[index] ? "verified" : ""}>
+          {phrases.map((phrase, index) => (
+            <div key={`${phrase}-${index}`} className={verified[index] ? "verified" : ""}>
               <span>{verified[index] ? "✓" : `0${index + 1}`}</span>
               <p>{phrase}</p>
               <button
@@ -740,20 +745,21 @@ function MissionStyles() {
   return (
     <style jsx global>{`
       .mission-root, .mission-body { margin: 0; min-height: 100%; background: #0b0f19 !important; }
+      .mission-root { min-height: 100%; -webkit-text-size-adjust: 100%; }
       .mission-body { overflow-x: hidden; }
       .mission-shell {
         --green: #00ff88; --gold: #f3b700; --red: #ff4d32; --muted: #758193;
-        position: relative; min-height: 100vh; overflow: hidden; color: #e8edf3;
+        position: relative; min-height: 100vh; min-height: 100svh; overflow: hidden; color: #e8edf3;
         background: radial-gradient(circle at 50% 0%, #142135 0, #0b0f19 42%, #070a10 100%);
         font-family: var(--font-ibm-plex-mono), ui-monospace, monospace;
       }
       .grid-overlay { position: fixed; inset: 0; pointer-events: none; opacity: .18;
         background-image: linear-gradient(rgba(0,255,136,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,136,.08) 1px, transparent 1px);
         background-size: 36px 36px; mask-image: linear-gradient(to bottom, black, transparent 78%); }
-      .screen { position: relative; z-index: 1; width: min(920px, calc(100% - 32px)); margin: 0 auto; padding: 82px 0 64px; }
-      .sound-toggle { position: fixed; z-index: 10; right: 16px; top: 16px; padding: 8px 10px; color: #8a96a7; border: 1px solid #263244; background: rgba(7,10,16,.88); font: 10px inherit; letter-spacing: .12em; }
-      button, a { -webkit-tap-highlight-color: transparent; }
-      button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+      .screen { position: relative; z-index: 1; width: min(920px, calc(100% - 32px)); margin: 0 auto; padding: calc(82px + env(safe-area-inset-top)) 0 calc(64px + env(safe-area-inset-bottom)); }
+      .sound-toggle { position: fixed; z-index: 10; right: max(16px, env(safe-area-inset-right)); top: max(16px, env(safe-area-inset-top)); padding: 8px 10px; color: #8a96a7; border: 1px solid #263244; background: rgba(7,10,16,.88); font: 10px inherit; letter-spacing: .12em; }
+      button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+      button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
       .eyebrow, .panel-kicker { color: var(--green); font-size: 11px; letter-spacing: .25em; }
       .classification { position: absolute; top: 28px; left: 0; color: var(--red); border: 1px solid var(--red); padding: 7px 10px; font-size: 10px; letter-spacing: .18em; transform: rotate(-2deg); }
       .access-screen { text-align: center; max-width: 760px; }
@@ -764,7 +770,7 @@ function MissionStyles() {
       .code-field { display: flex; flex-direction: column; gap: 8px; padding: 16px 8px; background: rgba(15,22,34,.9); border: 1px solid #253148; color: #8995a6; font-size: 9px; letter-spacing: .08em; }
       .code-icon { font-size: 25px; filter: grayscale(.2); }
       .code-field input { width: 58px; margin: 3px auto 0; border: 0; border-bottom: 1px solid #45536a; background: transparent; color: var(--green); text-align: center; font: 25px inherit; }
-      .primary-button, .gold-button { border: 1px solid var(--green); background: rgba(0,255,136,.07); color: var(--green); padding: 15px 18px; font: 700 11px inherit; letter-spacing: .14em; transition: .2s; cursor: pointer; }
+      .primary-button, .gold-button { min-height: 46px; border: 1px solid var(--green); background: rgba(0,255,136,.07); color: var(--green); padding: 15px 18px; font: 700 11px inherit; letter-spacing: .14em; transition: .2s; cursor: pointer; }
       .primary-button:hover { background: var(--green); color: #06110c; box-shadow: 0 0 25px rgba(0,255,136,.25); }
       .primary-button:disabled { opacity: .3; cursor: not-allowed; }
       .code-grid > .primary-button { grid-column: 1 / -1; margin-top: 12px; }
@@ -782,7 +788,7 @@ function MissionStyles() {
       .cipher-panel div { display: flex; justify-content: center; gap: 11px; margin: 18px 0; }
       .cipher-panel div span { display: grid; place-items: center; width: 45px; height: 54px; border-bottom: 2px solid var(--green); color: var(--green); font-size: 27px; text-shadow: 0 0 15px rgba(0,255,136,.4); }
       .clue-list { display: grid; gap: 10px; }
-      .clue-card { width: 100%; display: grid; grid-template-columns: 55px 1fr auto; align-items: center; gap: 15px; padding: 16px; text-align: left; color: white; border: 1px solid #273449; background: rgba(13,20,32,.92); font-family: inherit; transition: .2s; }
+      .clue-card { width: 100%; min-height: 74px; display: grid; grid-template-columns: 55px 1fr auto; align-items: center; gap: 15px; padding: 16px; text-align: left; color: white; border: 1px solid #273449; background: rgba(13,20,32,.92); font-family: inherit; transition: .2s; }
       .clue-card.available { cursor: pointer; border-color: rgba(0,255,136,.5); }
       .clue-card.available:hover { transform: translateX(4px); background: rgba(0,255,136,.07); }
       .clue-card.locked { opacity: .46; } .clue-card.complete { border-color: #285b45; }
@@ -797,7 +803,7 @@ function MissionStyles() {
       .trivia-form { display: grid; gap: 22px; margin-top: 26px; }
       .trivia-form label span { display: flex; gap: 13px; color: #cbd3de; font-size: 12px; line-height: 1.5; }
       .trivia-form label b { color: var(--green); }
-      .trivia-form input, .single-answer input { width: 100%; box-sizing: border-box; margin-top: 9px; padding: 12px 4px; border: 0; border-bottom: 1px solid #344157; background: transparent; color: white; font: 14px inherit; }
+      .trivia-form input, .single-answer input { width: 100%; box-sizing: border-box; margin-top: 9px; padding: 12px 4px; border: 0; border-bottom: 1px solid #344157; background: transparent; color: white; font: 16px inherit; }
       .invalid input { border-color: var(--red); } .invalid em { display: block; margin-top: 6px; color: var(--red); font-size: 9px; font-style: normal; }
       .dossier { position: relative; overflow: hidden; background: radial-gradient(circle at 80% 20%, rgba(243,183,0,.10), transparent 35%), #0d1118; }
       .dossier::before { content: ""; position: absolute; inset: 0; opacity: .12; background: repeating-linear-gradient(15deg, transparent 0 10px, #f3b700 11px, transparent 12px); pointer-events: none; }
@@ -812,7 +818,7 @@ function MissionStyles() {
       .phrase-list { display: grid; gap: 10px; margin-top: 30px; text-align: left; }
       .phrase-list > div { display: grid; grid-template-columns: 35px 1fr auto; align-items: center; gap: 12px; border: 1px solid #29364a; padding: 13px; }
       .phrase-list > div > span { color: var(--green); } .phrase-list p { margin: 0; font-size: 12px; }
-      .phrase-list button { border: 1px solid #42516a; background: transparent; color: #9da9b9; padding: 9px; font: 9px inherit; cursor: pointer; }
+      .phrase-list button { min-height: 44px; border: 1px solid #42516a; background: transparent; color: #9da9b9; padding: 9px; font: 9px inherit; cursor: pointer; }
       .phrase-list .verified { border-color: #236143; background: rgba(0,255,136,.05); }
       .phrase-list .verified button { color: var(--green); border-color: var(--green); }
       .transcript, .voice-error { margin-top: 18px; color: var(--green); font-size: 10px; letter-spacing: .08em; }
@@ -835,24 +841,24 @@ function MissionStyles() {
       .success-screen h1 { margin: 12px 0 25px; font-size: clamp(32px, 8vw, 62px); }
       .reservation { display: inline-flex; flex-direction: column; border: 1px solid #334056; padding: 13px 28px; margin-bottom: 25px; color: #788698; font-size: 9px; letter-spacing: .16em; }
       .reservation strong { color: white; font-size: 25px; margin-top: 5px; }
-      .map-button { display: block; width: fit-content; margin: 0 auto; text-decoration: none; }
+      .map-button { display: block; width: fit-content; max-width: 100%; margin: 0 auto; text-decoration: none; overflow-wrap: anywhere; }
       .final-message { margin-top: 40px; color: #d7cba8; font-family: Georgia, serif; font-style: italic; font-size: 18px; }
       .confetti { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
       .confetti i { --x: calc((var(--i) * 37) % 100); position: absolute; left: calc(var(--x) * 1%); top: -20px; width: 7px; height: 14px; background: var(--gold); animation: fall calc(3s + (var(--i) % 5) * .4s) linear infinite; animation-delay: calc((var(--i) % 9) * -.35s); transform: rotate(calc(var(--i) * 23deg)); }
       .confetti i:nth-child(3n) { background: var(--green); } .confetti i:nth-child(3n+1) { background: var(--red); }
-      .secret-override { position: fixed; z-index: 30; right: 0; bottom: 0; width: 28px; height: 28px; opacity: 0; border: 0; }
-      .mission-loading { min-height: 100vh; display: grid; place-items: center; background: #0b0f19; color: #00ff88; font: 11px var(--font-ibm-plex-mono), monospace; letter-spacing: .2em; }
+      .secret-override { position: fixed; z-index: 30; right: env(safe-area-inset-right); bottom: env(safe-area-inset-bottom); width: 28px; height: 28px; opacity: 0; border: 0; }
+      .mission-loading { min-height: 100vh; min-height: 100svh; display: grid; place-items: center; background: #0b0f19; color: #00ff88; font: 11px var(--font-ibm-plex-mono), monospace; letter-spacing: .2em; }
       @keyframes shake { 25% { transform: translateX(-8px); } 50% { transform: translateX(8px); } 75% { transform: translateX(-5px); } }
       @keyframes pulse { 50% { box-shadow: 0 0 0 28px rgba(0,255,136,0); transform: scale(1.04); } }
       @keyframes warning { 50% { box-shadow: 0 0 35px rgba(255,77,50,.3); transform: scale(1.05); } }
       @keyframes fall { to { transform: translateY(105vh) rotate(720deg); } }
       @media (max-width: 650px) {
-        .screen { width: min(100% - 24px, 920px); padding-top: 78px; }
+        .screen { width: min(100% - 24px, 920px); padding-top: calc(78px + env(safe-area-inset-top)); padding-bottom: calc(42px + env(safe-area-inset-bottom)); }
         .code-grid { grid-template-columns: repeat(2, 1fr); }
         .code-field:last-of-type { grid-column: 1 / -1; }
-        .clue-card { grid-template-columns: 42px 1fr; } .card-status { grid-column: 2; }
+        .clue-card { grid-template-columns: 42px 1fr; gap: 10px; padding: 14px 12px; } .card-status { grid-column: 2; overflow-wrap: anywhere; }
         .target-bar { gap: 8px; font-size: 9px; } .target-bar b { font-size: 15px; }
-        .phrase-list > div { grid-template-columns: 30px 1fr; }
+        .phrase-list > div { grid-template-columns: 30px 1fr; align-items: start; }
         .phrase-list button { grid-column: 2; }
       }
       @media (prefers-reduced-motion: reduce) {

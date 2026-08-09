@@ -10,7 +10,7 @@
     "lint": "next lint",
     "import": "node ./scripts/import-posts.js",
     "create-post": "node ./scripts/new-post.mjs",
-    "connect-db": "node ./scripts/connect-db.js"
+    "connect-db": "node ./scripts/connect-db.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^1.6.1",

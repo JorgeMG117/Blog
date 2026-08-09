@@ -2,7 +2,7 @@ export const missionConfig = {
   date: "2026-08-11",
   timeZone: "Europe/Istanbul",
   storageKey: "project_istanbul_progress",
-  version: 1,
+  version: 2,
   codes: [
     { id: "gaming", icon: "🎮", label: "Gaming Key", value: "1" },
     { id: "reflection", icon: "🪞", label: "Reflection Key", value: "2" },
@@ -29,6 +29,66 @@ export type MissionScreen =
   | "extraction"
   | "success";
 
+export interface MissionCode {
+  id: string;
+  icon: string;
+  label: string;
+  value: string;
+}
+
+export interface MissionTriviaQuestion {
+  prompt: string;
+  placeholder: string;
+  acceptedAnswers: string[];
+  durationRange?: {
+    minMinutes: number;
+    maxMinutes: number;
+  };
+}
+
+export interface MissionClueCopy {
+  title: string;
+  subtitle: string;
+  time: string;
+  icon: string;
+}
+
+export interface MissionRuntimeConfig {
+  codes: MissionCode[];
+  triviaQuestions: MissionTriviaQuestion[];
+  voicePhrases: string[];
+  history: {
+    title: string;
+    riddle: string;
+    answer: string;
+    placeholder: string;
+  };
+  extraction: {
+    instruction: string;
+    emphasis: string;
+    masterKeyPrompt: string;
+    masterKey: string;
+  };
+  final: {
+    cipher: string[];
+    caesarShift: number;
+    displayWord: string;
+    restaurantName: string;
+    reservationTime: string;
+    mapsUrl: string;
+  };
+  clueMeta: Record<ClueId | "extraction", MissionClueCopy>;
+}
+
+export type MissionForcedCompleted = Record<ClueId | "extraction", boolean>;
+
+export interface MissionControlState {
+  config: MissionRuntimeConfig;
+  forcedCompleted: MissionForcedCompleted;
+  progressVersion: number;
+  updatedAt?: string;
+}
+
 export interface MissionProgress {
   version: number;
   roomUnlocked: boolean;
@@ -38,28 +98,137 @@ export interface MissionProgress {
   soundEnabled: boolean;
 }
 
-export const initialProgress: MissionProgress = {
-  version: missionConfig.version,
-  roomUnlocked: false,
-  completed: {
-    trivia: false,
-    voice: false,
-    history: false,
+export const defaultMissionRuntimeConfig: MissionRuntimeConfig = {
+  codes: [...missionConfig.codes],
+  triviaQuestions: [
+    {
+      prompt: "Near which major US city did Jorge study?",
+      placeholder: "City",
+      acceptedAnswers: ["Washington", "Washington DC", "Washington D.C.", "DC"],
+    },
+    {
+      prompt: "In which Nintendo Switch game am I going to destroy you?",
+      placeholder: "Game",
+      acceptedAnswers: ["Mario Kart"],
+    },
+    {
+      prompt: "Which is officially the worst country in the world?",
+      placeholder: "Country",
+      acceptedAnswers: ["Georgia"],
+    },
+    {
+      prompt: "How many minutes was our longest videocall?",
+      placeholder: "e.g. 5h15min",
+      acceptedAnswers: [],
+      durationRange: {
+        minMinutes: 300,
+        maxMinutes: 330,
+      },
+    },
+    {
+      prompt: "Could you tackle Jorge to the ground if he actually tried to stop you?",
+      placeholder: "Yes / No",
+      acceptedAnswers: ["No", "No way", "Of course not", "Impossible"],
+    },
+  ],
+  voicePhrases: [
+    "Mañaña",
+    "Jorge es mucho mejor que yo a los videojuegos",
+    "Quiero comer kebab",
+    "Mmmmm como me gustan los ladyboys",
+  ],
+  history: {
+    title: "THE SUNKEN PALACE",
+    riddle:
+      "Deep underground in Istanbul lies a sunken palace supported by 336 columns. Two of them rest on the head of a mythological creature placed upside down. What is the name of this creature?",
+    answer: "Medusa",
+    placeholder: "INPUT NAME",
   },
-  overrideUsed: false,
-  finalRevealed: false,
-  soundEnabled: true,
+  extraction: {
+    instruction: "LOOK INSIDE YOUR BAG RIGHT NOW.",
+    emphasis: "FIND THE HEART.",
+    masterKeyPrompt: "Enter the Master Key number found on the back of the heart:",
+    masterKey: missionConfig.masterKey,
+  },
+  final: {
+    cipher: [...missionConfig.cipher],
+    caesarShift: 7,
+    displayWord: "MÜRVER",
+    restaurantName: "MÜRVER RESTAURANT",
+    reservationTime: "20:45",
+    mapsUrl: missionConfig.mapsUrl,
+  },
+  clueMeta: {
+    trivia: {
+      title: "CLUE 1: SECURITY TRIVIA",
+      subtitle: "PERSONAL INTELLIGENCE CHECK",
+      time: missionConfig.schedule.trivia,
+      icon: "01",
+    },
+    voice: {
+      title: "CLUE 2: VOICE RECOGNITION",
+      subtitle: "SPANISH AUDIO VERIFICATION",
+      time: missionConfig.schedule.voice,
+      icon: "02",
+    },
+    history: {
+      title: "CLUE 3: ISTANBUL DOSSIER",
+      subtitle: "HISTORICAL INTELLIGENCE",
+      time: missionConfig.schedule.history,
+      icon: "03",
+    },
+    extraction: {
+      title: "MASTER KEY EXTRACTION",
+      subtitle: "PHYSICAL ASSET REQUIRED",
+      time: missionConfig.schedule.extraction,
+      icon: "⚠",
+    },
+  },
 };
 
-export function parseProgress(raw: string | null): MissionProgress {
-  if (!raw) return initialProgress;
+export const defaultForcedCompleted: MissionForcedCompleted = {
+  trivia: false,
+  voice: false,
+  history: false,
+  extraction: false,
+};
+
+export const defaultMissionControlState: MissionControlState = {
+  config: defaultMissionRuntimeConfig,
+  forcedCompleted: defaultForcedCompleted,
+  progressVersion: missionConfig.version,
+};
+
+export function createInitialProgress(version: number = missionConfig.version): MissionProgress {
+  return {
+    version,
+    roomUnlocked: false,
+    completed: {
+      trivia: false,
+      voice: false,
+      history: false,
+    },
+    overrideUsed: false,
+    finalRevealed: false,
+    soundEnabled: true,
+  };
+}
+
+export const initialProgress: MissionProgress = createInitialProgress();
+
+export function parseProgress(
+  raw: string | null,
+  version: number = missionConfig.version,
+): MissionProgress {
+  const fallback = createInitialProgress(version);
+  if (!raw) return fallback;
 
   try {
     const value = JSON.parse(raw) as Partial<MissionProgress>;
-    if (value.version !== missionConfig.version) return initialProgress;
+    if (value.version !== version) return fallback;
 
     return {
-      version: missionConfig.version,
+      version,
       roomUnlocked: value.roomUnlocked === true,
       completed: {
         trivia: value.completed?.trivia === true,
@@ -71,8 +240,45 @@ export function parseProgress(raw: string | null): MissionProgress {
       soundEnabled: value.soundEnabled !== false,
     };
   } catch {
-    return initialProgress;
+    return fallback;
   }
+}
+
+export function mergeMissionControlState(
+  value: Partial<MissionControlState> | null | undefined,
+): MissionControlState {
+  return {
+    config: {
+      ...defaultMissionRuntimeConfig,
+      ...(value?.config ?? {}),
+      codes: value?.config?.codes ?? defaultMissionRuntimeConfig.codes,
+      triviaQuestions:
+        value?.config?.triviaQuestions ?? defaultMissionRuntimeConfig.triviaQuestions,
+      voicePhrases: value?.config?.voicePhrases ?? defaultMissionRuntimeConfig.voicePhrases,
+      history: {
+        ...defaultMissionRuntimeConfig.history,
+        ...(value?.config?.history ?? {}),
+      },
+      extraction: {
+        ...defaultMissionRuntimeConfig.extraction,
+        ...(value?.config?.extraction ?? {}),
+      },
+      final: {
+        ...defaultMissionRuntimeConfig.final,
+        ...(value?.config?.final ?? {}),
+      },
+      clueMeta: {
+        ...defaultMissionRuntimeConfig.clueMeta,
+        ...(value?.config?.clueMeta ?? {}),
+      },
+    },
+    forcedCompleted: {
+      ...defaultForcedCompleted,
+      ...(value?.forcedCompleted ?? {}),
+    },
+    progressVersion: value?.progressVersion ?? missionConfig.version,
+    updatedAt: value?.updatedAt,
+  };
 }
 
 export function normalizeText(value: string): string {

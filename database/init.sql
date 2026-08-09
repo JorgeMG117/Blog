@@ -75,3 +75,18 @@ alter table wol.command
 
 grant usage on schema wol to personal_site_app;
 grant select, insert, update on wol.command to personal_site_app;
+
+-- Project Istanbul mission control
+create schema if not exists mission;
+
+create table if not exists mission.config (
+  id integer not null primary key default 1,
+  config jsonb not null,
+  forced_completed jsonb not null,
+  progress_version integer not null,
+  updated_at timestamp not null default now(),
+  constraint CK_mission_config_singleton check (id = 1)
+);
+
+grant usage on schema mission to personal_site_app;
+grant select, insert, update on mission.config to personal_site_app;
