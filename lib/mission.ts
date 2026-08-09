@@ -306,6 +306,47 @@ export function similarity(left: string, right: string): number {
   return 1 - editDistance(a, b) / longest;
 }
 
+export interface VoicePhraseMatch {
+  score: number;
+  isMatch: boolean;
+}
+
+export function matchVoicePhrase(
+  transcript: string,
+  target: string,
+): VoicePhraseMatch {
+  const normalizedTranscript = normalizeText(transcript);
+  const normalizedTarget = normalizeText(target);
+  const score = similarity(normalizedTranscript, normalizedTarget);
+
+  if (!normalizedTranscript || !normalizedTarget) {
+    return { score, isMatch: false };
+  }
+
+  const transcriptWords = normalizedTranscript.split(" ");
+  const targetWords = normalizedTarget.split(" ");
+  const allowedWordDifference = Math.max(1, Math.floor(targetWords.length * 0.2));
+  const wordCountIsClose =
+    Math.abs(transcriptWords.length - targetWords.length) <= allowedWordDifference;
+  const significantWords = targetWords.filter(
+    (word) => word.length >= 4 && new Set(word).size > 1,
+  );
+  const matchedSignificantWords = significantWords.filter((targetWord) =>
+    transcriptWords.some((word) => similarity(word, targetWord) >= 0.8),
+  ).length;
+  const significantWordCoverage = significantWords.length
+    ? matchedSignificantWords / significantWords.length
+    : 1;
+
+  return {
+    score,
+    isMatch:
+      score >= 0.84 &&
+      wordCountIsClose &&
+      significantWordCoverage >= 0.75,
+  };
+}
+
 export function matchesAny(
   answer: string,
   accepted: readonly string[],

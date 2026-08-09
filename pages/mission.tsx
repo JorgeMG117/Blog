@@ -22,26 +22,45 @@ import {
   MissionScreen,
   parseDurationMinutes,
   parseProgress,
-  similarity,
+  matchVoicePhrase,
 } from "../lib/mission";
 
+interface SpeechRecognitionAlternativeLike {
+  readonly transcript: string;
+  readonly confidence: number;
+}
+
 interface SpeechRecognitionResultLike {
-  readonly 0: { transcript: string };
+  readonly length: number;
+  readonly isFinal: boolean;
+  readonly [index: number]: SpeechRecognitionAlternativeLike;
 }
 
 interface SpeechRecognitionEventLike {
-  readonly results: { readonly 0: SpeechRecognitionResultLike };
+  readonly resultIndex: number;
+  readonly results: {
+    readonly length: number;
+    readonly [index: number]: SpeechRecognitionResultLike;
+  };
+}
+
+interface SpeechRecognitionErrorEventLike {
+  readonly error: string;
+  readonly message?: string;
 }
 
 interface SpeechRecognitionLike {
   lang: string;
   continuous: boolean;
   interimResults: boolean;
+  maxAlternatives: number;
+  onstart: (() => void) | null;
   onresult: ((event: SpeechRecognitionEventLike) => void) | null;
-  onerror: (() => void) | null;
+  onerror: ((event: SpeechRecognitionErrorEventLike) => void) | null;
   onend: (() => void) | null;
   start: () => void;
   stop: () => void;
+  abort: () => void;
 }
 
 type SpeechRecognitionConstructor = new () => SpeechRecognitionLike;
@@ -639,16 +658,42 @@ function VoiceScreen({
 }) {
   const [verified, setVerified] = useState(() => phrases.map(() => false));
   const [active, setActive] = useState<number | null>(null);
+  const [status, setStatus] = useState<"idle" | "starting" | "listening" | "checking">("idle");
   const [transcript, setTranscript] = useState("");
   const [error, setError] = useState("");
   const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
+  const sessionRef = useRef(0);
+  const timeoutRef = useRef<number | undefined>(undefined);
   const supported =
     typeof window !== "undefined" &&
     Boolean(window.SpeechRecognition || window.webkitSpeechRecognition);
 
+  const clearListeningTimeout = () => {
+    if (timeoutRef.current !== undefined) {
+      window.clearTimeout(timeoutRef.current);
+      timeoutRef.current = undefined;
+    }
+  };
+
   useEffect(() => {
     setVerified(phrases.map(() => false));
+    return () => {
+      sessionRef.current += 1;
+      clearListeningTimeout();
+      recognitionRef.current?.abort();
+      recognitionRef.current = null;
+    };
   }, [phrases]);
+
+  const cancelListening = () => {
+    sessionRef.current += 1;
+    clearListeningTimeout();
+    recognitionRef.current?.abort();
+    recognitionRef.current = null;
+    setActive(null);
+    setStatus("idle");
+    setError("VOICE CAPTURE CANCELLED");
+  };
 
   const startListening = (index: number) => {
     const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -656,15 +701,58 @@ function VoiceScreen({
       setError("VOICE MODULE NOT SUPPORTED BY THIS BROWSER");
       return;
     }
+
+    clearListeningTimeout();
+    recognitionRef.current?.abort();
+    const session = sessionRef.current + 1;
+    sessionRef.current = session;
     const recognition = new Recognition();
     recognition.lang = "es-ES";
     recognition.continuous = false;
     recognition.interimResults = false;
+    recognition.maxAlternatives = 5;
+    recognitionRef.current = recognition;
+    setTranscript("");
+    setError("");
+    setActive(index);
+    setStatus("starting");
+
+    recognition.onstart = () => {
+      if (sessionRef.current !== session) return;
+      setStatus("listening");
+      timeoutRef.current = window.setTimeout(() => {
+        if (sessionRef.current !== session) return;
+        sessionRef.current += 1;
+        recognition.abort();
+        recognitionRef.current = null;
+        setActive(null);
+        setStatus("idle");
+        setError("NO SPEECH DETECTED — TAP AND TRY AGAIN");
+      }, 10000);
+    };
+
     recognition.onresult = (event) => {
-      const result = event.results[0][0].transcript;
-      setTranscript(result);
-      const score = similarity(result, phrases[index]);
-      if (score >= 0.7) {
+      if (sessionRef.current !== session) return;
+      clearListeningTimeout();
+      setStatus("checking");
+      const result = event.results[event.resultIndex] ?? event.results[0];
+      const alternatives = Array.from({ length: result?.length ?? 0 }, (_, itemIndex) => {
+        const value = result[itemIndex];
+        return {
+          transcript: value.transcript,
+          ...matchVoicePhrase(value.transcript, phrases[index]),
+        };
+      });
+      const best = alternatives.sort((left, right) => right.score - left.score)[0];
+
+      if (!best) {
+        setError("NO SPEECH DETECTED — TAP AND TRY AGAIN");
+        recognition.stop();
+        return;
+      }
+
+      setTranscript(best.transcript);
+      if (best.isMatch) {
         tone("success", soundEnabled);
         setVerified((current) => {
           const next = current.map((value, itemIndex) =>
@@ -676,53 +764,73 @@ function VoiceScreen({
         setError("");
       } else {
         tone("error", soundEnabled);
-        setError(`MATCH ${Math.round(score * 100)}% — 70% REQUIRED`);
+        setError("MATCH " + Math.round(best.score * 100) + "% — SAY THE COMPLETE PHRASE");
       }
+      recognition.stop();
     };
-    recognition.onerror = () => {
-      setError("VOICE CAPTURE FAILED — CHECK MICROPHONE PERMISSION");
+
+    recognition.onerror = (event) => {
+      if (sessionRef.current !== session || event.error === "aborted") return;
+      clearListeningTimeout();
+      const messages: Record<string, string> = {
+        "not-allowed": "MICROPHONE BLOCKED — ENABLE IT IN BROWSER SETTINGS",
+        "service-not-allowed": "VOICE SERVICE BLOCKED BY THIS BROWSER",
+        "audio-capture": "MICROPHONE NOT AVAILABLE — CHECK OTHER APPS",
+        "no-speech": "NO SPEECH DETECTED — TAP AND TRY AGAIN",
+        network: "VOICE SERVICE NETWORK ERROR — CHECK YOUR CONNECTION",
+      };
+      setError(messages[event.error] ?? "VOICE CAPTURE FAILED — TAP AND TRY AGAIN");
       setActive(null);
+      setStatus("idle");
     };
-    recognition.onend = () => setActive(null);
-    recognitionRef.current = recognition;
-    setTranscript("");
-    setError("");
-    setActive(index);
+
+    recognition.onend = () => {
+      if (sessionRef.current !== session) return;
+      clearListeningTimeout();
+      if (recognitionRef.current === recognition) recognitionRef.current = null;
+      setActive(null);
+      setStatus("idle");
+    };
+
     try {
       recognition.start();
     } catch {
-      setError("VOICE MODULE BUSY — TRY AGAIN");
+      if (sessionRef.current !== session) return;
+      recognitionRef.current = null;
+      setError("VOICE MODULE BUSY — TAP AND TRY AGAIN");
       setActive(null);
+      setStatus("idle");
     }
   };
 
-  const stopListening = () => {
-    recognitionRef.current?.stop();
-  };
+  const activeLabel =
+    status === "starting"
+      ? "STARTING..."
+      : status === "listening"
+        ? "LISTENING... TAP TO CANCEL"
+        : "CHECKING...";
 
   return (
     <section className="screen">
       <ScreenHeader code="CLUE 02" title="VOICE RECOGNITION" onBack={onBack} />
       <div className="voice-console panel">
         <p className="panel-kicker">SPANISH PRONUNCIATION TEST // ES-ES</p>
-        <div className={`microphone ${active !== null ? "listening" : ""}`}>◉</div>
+        <div className={"microphone " + (active !== null ? "listening" : "")}>◉</div>
         <p className="voice-instruction">
-          Hold the control and speak each phrase clearly.
+          Tap once, wait for LISTENING, and say each complete phrase clearly.
         </p>
         {!supported && <p className="voice-error">VOICE MODULE NOT SUPPORTED. USE EMERGENCY OVERRIDE.</p>}
         <div className="phrase-list">
           {phrases.map((phrase, index) => (
-            <div key={`${phrase}-${index}`} className={verified[index] ? "verified" : ""}>
-              <span>{verified[index] ? "✓" : `0${index + 1}`}</span>
+            <div key={phrase + "-" + index} className={verified[index] ? "verified" : ""}>
+              <span>{verified[index] ? "✓" : "0" + (index + 1)}</span>
               <p>{phrase}</p>
               <button
                 type="button"
-                disabled={verified[index] || !supported}
-                onPointerDown={() => startListening(index)}
-                onPointerUp={stopListening}
-                onPointerCancel={stopListening}
+                disabled={verified[index] || !supported || (active !== null && active !== index)}
+                onClick={() => active === index ? cancelListening() : startListening(index)}
               >
-                {verified[index] ? "VERIFIED" : active === index ? "LISTENING..." : "HOLD TO SPEAK"}
+                {verified[index] ? "VERIFIED" : active === index ? activeLabel : "TAP TO SPEAK"}
               </button>
             </div>
           ))}
