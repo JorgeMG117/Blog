@@ -611,7 +611,6 @@ function Dashboard({
             >
               <span className="clue-number">{completed ? "✓" : meta.icon}</span>
               <span className="clue-copy">
-                <small>{meta.time} TRT</small>
                 <strong>{meta.title}</strong>
                 <em>{meta.subtitle}</em>
               </span>
@@ -622,12 +621,6 @@ function Dashboard({
           );
         })}
       </div>
-      {progress.completed.history && !availability.extraction && (
-        <p className="all-collected">
-          ALL DIGITAL DATA COLLECTED. PROCEED TO SUNSET SPOT FOR PHYSICAL
-          EXTRACTION AT {runtimeConfig.clueMeta.extraction.time}.
-        </p>
-      )}
       {progress.overrideUsed && <p className="override-notice">EMERGENCY OVERRIDE ACTIVE</p>}
     </section>
   );
