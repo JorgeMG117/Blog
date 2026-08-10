@@ -160,7 +160,7 @@ export default function MissionControl({
                       }))
                     }
                   />
-                  {id}
+                  {id === "history" ? "rendezvous" : id}
                 </label>
               ))}
             </div>
@@ -260,7 +260,7 @@ export default function MissionControl({
           </section>
 
           <section className="rounded-md border border-stone-300 bg-white p-5 dark:border-stone-600 dark:bg-stone-900">
-            <h2 className="mb-4 text-xl font-semibold">History</h2>
+            <h2 className="mb-4 text-xl font-semibold">Rendezvous</h2>
             <div className="grid gap-3">
               <label className="block text-sm">
                 Title
@@ -279,7 +279,7 @@ export default function MissionControl({
                 />
               </label>
               <label className="block text-sm">
-                Riddle
+                Message
                 <textarea
                   className="mission-control-area mt-2 min-h-24 w-full rounded-md dark:bg-stone-800"
                   value={state.config.history.riddle}
@@ -289,22 +289,6 @@ export default function MissionControl({
                       config: {
                         ...current.config,
                         history: { ...current.config.history, riddle: event.target.value },
-                      },
-                    }))
-                  }
-                />
-              </label>
-              <label className="block text-sm">
-                Accepted answer
-                <input
-                  className="mission-control-field mt-2 w-full rounded-md dark:bg-stone-800"
-                  value={state.config.history.answer}
-                  onChange={(event) =>
-                    setState((current) => ({
-                      ...current,
-                      config: {
-                        ...current.config,
-                        history: { ...current.config.history, answer: event.target.value },
                       },
                     }))
                   }

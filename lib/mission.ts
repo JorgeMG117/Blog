@@ -1,6 +1,6 @@
 export const missionConfig = {
   storageKey: "project_istanbul_progress",
-  version: 2,
+  version: 3,
   codes: [
     { id: "bed", icon: "🛏️", label: "Bed Key", value: "1" },
     { id: "suitcase", icon: "🧳", label: "Suitcase Key", value: "2" },
@@ -42,6 +42,7 @@ export interface MissionTriviaQuestion {
 export interface MissionClueCopy {
   title: string;
   subtitle: string;
+  time: string;
   icon: string;
 }
 
@@ -130,11 +131,11 @@ export const defaultMissionRuntimeConfig: MissionRuntimeConfig = {
     "Mmmmm como me gustan los ladyboys",
   ],
   history: {
-    title: "THE SUNKEN PALACE",
+    title: "RENDEZVOUS INSTRUCTIONS",
     riddle:
-      "Deep underground in Istanbul lies a sunken palace supported by 336 columns. Two of them rest on the head of a mythological creature placed upside down. What is the name of this creature?",
-    answer: "Medusa",
-    placeholder: "INPUT NAME",
+      "ALL SECURITY CHECKS COMPLETE. BE AT KARAKÖY WATERFRONT AT 19:45 FOR THE NEXT CLUE.",
+    answer: "",
+    placeholder: "",
   },
   extraction: {
     instruction: "LOOK INSIDE YOUR BAG RIGHT NOW.",
@@ -154,21 +155,25 @@ export const defaultMissionRuntimeConfig: MissionRuntimeConfig = {
     trivia: {
       title: "CLUE 1: SECURITY TRIVIA",
       subtitle: "PERSONAL INTELLIGENCE CHECK",
+      time: "14:00",
       icon: "01",
     },
     voice: {
       title: "CLUE 2: VOICE RECOGNITION",
       subtitle: "SPANISH AUDIO VERIFICATION",
+      time: "17:00",
       icon: "02",
     },
     history: {
-      title: "CLUE 3: ISTANBUL DOSSIER",
-      subtitle: "HISTORICAL INTELLIGENCE",
+      title: "SECURITY CHECKS COMPLETE",
+      subtitle: "KARAKÖY WATERFRONT RENDEZVOUS",
+      time: "18:30",
       icon: "03",
     },
     extraction: {
       title: "MASTER KEY EXTRACTION",
       subtitle: "PHYSICAL ASSET REQUIRED",
+      time: "19:45",
       icon: "⚠",
     },
   },

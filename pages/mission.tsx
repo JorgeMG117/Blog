@@ -163,8 +163,6 @@ export default function MissionPage() {
   const [answerErrors, setAnswerErrors] = useState<boolean[]>(
     defaultMissionControlState.config.triviaQuestions.map(() => false),
   );
-  const [historyAnswer, setHistoryAnswer] = useState("");
-  const [historyError, setHistoryError] = useState(false);
   const [masterKey, setMasterKey] = useState("");
   const [masterError, setMasterError] = useState(false);
   const [overrideClicks, setOverrideClicks] = useState<number[]>([]);
@@ -312,17 +310,6 @@ export default function MissionPage() {
     completeClue("trivia");
   };
 
-  const submitHistory = (event: React.FormEvent) => {
-    event.preventDefault();
-    if (!matchesAny(historyAnswer, [runtimeConfig.history.answer], 0.8)) {
-      setHistoryError(true);
-      tone("error", progress.soundEnabled);
-      return;
-    }
-    setHistoryError(false);
-    completeClue("history");
-  };
-
   const submitMasterKey = (event: React.FormEvent) => {
     event.preventDefault();
     if (masterKey.trim() !== runtimeConfig.extraction.masterKey) {
@@ -388,7 +375,7 @@ export default function MissionPage() {
 
         {screen === "briefing" && (
           <section className="screen access-screen">
-            <div className="classification">TOP SECRET // EYES ONLY</div>
+            <div className="classification">TOP SECRET // AIDA ONLY</div>
             <p className="eyebrow">[ FIELD SEARCH REQUIRED ]</p>
             <h1 className="hero-title">PROJECT<br /><span>ISTANBUL</span></h1>
             <p className="hero-copy">
@@ -410,7 +397,7 @@ export default function MissionPage() {
 
         {screen === "access" && (
           <section className="screen access-screen">
-            <div className="classification">TOP SECRET // EYES ONLY</div>
+            <div className="classification">TOP SECRET // AIDA ONLY</div>
             <p className="eyebrow">[ RESTRICTED ACCESS ]</p>
             <h1 className="hero-title">PROJECT<br /><span>ISTANBUL</span></h1>
             <p className="hero-copy">
@@ -504,24 +491,19 @@ export default function MissionPage() {
 
         {screen === "history" && (
           <section className="screen">
-            <ScreenHeader code="CLUE 03" title="ISTANBUL DOSSIER" onBack={() => setScreen("dashboard")} />
+            <ScreenHeader code="18:30" title="SECURITY CHECKS COMPLETE" onBack={() => setScreen("dashboard")} />
             <div className="dossier panel">
-              <div className="dossier-stamp">ARCHIVE<br />532 A.D.</div>
-              <p className="panel-kicker">CLASSIFIED HISTORICAL RECORD</p>
+              <div className="dossier-stamp">FIELD<br />ORDER</div>
+              <p className="panel-kicker">ALL DIGITAL VERIFICATION PASSED</p>
               <h2>{runtimeConfig.history.title}</h2>
-              <p className="riddle">“{runtimeConfig.history.riddle}”</p>
-              <form onSubmit={submitHistory}>
-                <label className={historyError ? "invalid single-answer" : "single-answer"}>
-                  <span>SUBJECT IDENTIFICATION</span>
-                  <input
-                    value={historyAnswer}
-                    onChange={(event) => setHistoryAnswer(event.target.value)}
-                    placeholder={runtimeConfig.history.placeholder}
-                  />
-                  {historyError && <em>IDENTIFICATION FAILED</em>}
-                </label>
-                <button className="primary-button" type="submit">VERIFY DOSSIER →</button>
-              </form>
+              <p className="riddle">{runtimeConfig.history.riddle}</p>
+              <button
+                className="primary-button"
+                onClick={() => completeClue("history")}
+                type="button"
+              >
+                ORDER RECEIVED →
+              </button>
             </div>
           </section>
         )}
@@ -651,6 +633,7 @@ function Dashboard({
             >
               <span className="clue-number">{completed ? "✓" : meta.icon}</span>
               <span className="clue-copy">
+                <small>{meta.time} TRT</small>
                 <strong>{meta.title}</strong>
                 <em>{meta.subtitle}</em>
               </span>
