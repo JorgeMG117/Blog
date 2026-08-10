@@ -10,19 +10,28 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ApiResponse<MissionControlState>>,
 ) {
+  res.setHeader("Cache-Control", "no-store, max-age=0");
+
   if (req.method !== "GET") {
     res.status(405).json({ isSuccess: false, message: "Method not allowed." });
     return;
   }
 
   try {
-    res.status(200).json({ data: await getMissionControlState(), isSuccess: true });
+    const state = await getMissionControlState();
+    res.status(200).json({
+      data: { ...state, serverNow: new Date().toISOString() },
+      isSuccess: true,
+    });
   } catch (error) {
     if (process.env.NODE_ENV !== "production") {
       handleError(res, error, "An error occurred getting mission config.");
       return;
     }
 
-    res.status(200).json({ data: defaultMissionControlState, isSuccess: true });
+    res.status(200).json({
+      data: { ...defaultMissionControlState, serverNow: new Date().toISOString() },
+      isSuccess: true,
+    });
   }
 }

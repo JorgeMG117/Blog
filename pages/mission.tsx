@@ -156,6 +156,7 @@ export default function MissionPage() {
   const [hydrated, setHydrated] = useState(false);
   const [screen, setScreen] = useState<MissionScreen>("briefing");
   const [now, setNow] = useState(() => new Date());
+  const clockOffsetRef = useRef(0);
   const [accessCodes, setAccessCodes] = useState(
     defaultMissionControlState.config.codes.map(() => ""),
   );
@@ -168,7 +169,6 @@ export default function MissionPage() {
   );
   const [masterKey, setMasterKey] = useState("");
   const [masterError, setMasterError] = useState(false);
-  const [overrideClicks, setOverrideClicks] = useState<number[]>([]);
   const [revealedLetters, setRevealedLetters] = useState(0);
 
   const runtimeConfig = control.config;
@@ -182,7 +182,16 @@ export default function MissionPage() {
       try {
         const response = await fetch("/api/mission/config");
         const result = (await response.json()) as ApiResponse<MissionControlState>;
-        if (result.isSuccess && result.data) nextControl = result.data;
+        if (result.isSuccess && result.data) {
+          nextControl = result.data;
+          if (result.data.serverNow) {
+            const serverTimestamp = Date.parse(result.data.serverNow);
+            if (Number.isFinite(serverTimestamp)) {
+              clockOffsetRef.current = serverTimestamp - Date.now();
+              setNow(new Date(serverTimestamp));
+            }
+          }
+        }
       } catch {
         nextControl = defaultMissionControlState;
       }
@@ -223,7 +232,10 @@ export default function MissionPage() {
   }, [hydrated, progress]);
 
   useEffect(() => {
-    const timer = window.setInterval(() => setNow(new Date()), 1000);
+    const timer = window.setInterval(
+      () => setNow(new Date(Date.now() + clockOffsetRef.current)),
+      1000,
+    );
     return () => window.clearInterval(timer);
   }, []);
 
@@ -336,24 +348,6 @@ export default function MissionPage() {
     tone("success", progress.soundEnabled);
     setProgress((current) => ({ ...current, finalRevealed: true }));
     setScreen("success");
-  };
-
-  const handleOverride = () => {
-    const timestamp = Date.now();
-    const recent = [...overrideClicks.filter((click) => timestamp - click < 2000), timestamp];
-    if (recent.length >= 3) {
-      setProgress((current) => ({
-        ...current,
-        roomUnlocked: true,
-        completed: { trivia: true, voice: true, history: true },
-        overrideUsed: true,
-      }));
-      setScreen("dashboard");
-      setOverrideClicks([]);
-      tone("success", progress.soundEnabled);
-      return;
-    }
-    setOverrideClicks(recent);
   };
 
   if (!hydrated) {
@@ -585,11 +579,6 @@ export default function MissionPage() {
           </section>
         )}
 
-        <button
-          className="secret-override"
-          onClick={handleOverride}
-          aria-label="Emergency mission override"
-        />
       </main>
       <MissionStyles />
     </>
@@ -660,7 +649,6 @@ function Dashboard({
           );
         })}
       </div>
-      {progress.overrideUsed && <p className="override-notice">EMERGENCY OVERRIDE ACTIVE</p>}
     </section>
   );
 }
@@ -919,8 +907,6 @@ function MissionStyles() {
       .clue-copy strong { font-size: 13px; } .clue-copy em { color: #6f7d90; font-size: 9px; font-style: normal; }
       .card-status { color: #718095; font-size: 9px; letter-spacing: .1em; }
       .available .card-status, .complete .card-status { color: var(--green); }
-      .all-collected, .override-notice { color: var(--gold); text-align: center; font-size: 10px; line-height: 1.7; letter-spacing: .12em; margin-top: 18px; }
-      .override-notice { color: var(--red); }
       .panel { border: 1px solid #283449; background: rgba(11,17,27,.94); padding: clamp(20px, 5vw, 42px); }
       .trivia-form { display: grid; gap: 22px; margin-top: 26px; }
       .trivia-form label span { display: flex; gap: 13px; color: #cbd3de; font-size: 12px; line-height: 1.5; }
@@ -968,7 +954,6 @@ function MissionStyles() {
       .confetti { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
       .confetti i { --x: calc((var(--i) * 37) % 100); position: absolute; left: calc(var(--x) * 1%); top: -20px; width: 7px; height: 14px; background: var(--gold); animation: fall calc(3s + (var(--i) % 5) * .4s) linear infinite; animation-delay: calc((var(--i) % 9) * -.35s); transform: rotate(calc(var(--i) * 23deg)); }
       .confetti i:nth-child(3n) { background: var(--green); } .confetti i:nth-child(3n+1) { background: var(--red); }
-      .secret-override { position: fixed; z-index: 30; right: env(safe-area-inset-right); bottom: env(safe-area-inset-bottom); width: 28px; height: 28px; opacity: 0; border: 0; }
       .mission-loading { min-height: 100vh; min-height: 100svh; display: grid; place-items: center; background: #0b0f19; color: #00ff88; font: 11px var(--font-ibm-plex-mono), monospace; letter-spacing: .2em; }
       @keyframes shake { 25% { transform: translateX(-8px); } 50% { transform: translateX(8px); } 75% { transform: translateX(-5px); } }
       @keyframes pulse { 50% { box-shadow: 0 0 0 28px rgba(0,255,136,0); transform: scale(1.04); } }

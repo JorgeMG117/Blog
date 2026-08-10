@@ -2,7 +2,7 @@ export const missionConfig = {
   date: "2026-08-11",
   timeZone: "Europe/Istanbul",
   storageKey: "project_istanbul_progress",
-  version: 5,
+  version: 6,
   codes: [
     { id: "bed", icon: "🛏️", label: "Bed Key", value: "8" },
     { id: "suitcase", icon: "🧳", label: "Suitcase Key", value: "3" },
@@ -82,6 +82,7 @@ export interface MissionControlState {
   forcedCompleted: MissionForcedCompleted;
   progressVersion: number;
   updatedAt?: string;
+  serverNow?: string;
 }
 
 export interface MissionProgress {
