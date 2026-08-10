@@ -10,9 +10,11 @@ import {
 import type { ApiResponse } from "../types/api/types";
 import {
   caesarDecrypt,
+  countdownTo,
   ClueId,
   createInitialProgress,
   defaultMissionControlState,
+  isTimeReached,
   matchesAny,
   missionConfig,
   MissionControlState,
@@ -153,6 +155,7 @@ export default function MissionPage() {
   );
   const [hydrated, setHydrated] = useState(false);
   const [screen, setScreen] = useState<MissionScreen>("briefing");
+  const [now, setNow] = useState(() => new Date());
   const [accessCodes, setAccessCodes] = useState(
     defaultMissionControlState.config.codes.map(() => ""),
   );
@@ -220,6 +223,11 @@ export default function MissionPage() {
   }, [hydrated, progress]);
 
   useEffect(() => {
+    const timer = window.setInterval(() => setNow(new Date()), 1000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
     document.documentElement.classList.add("mission-root");
     document.body.classList.add("mission-body");
     return () => {
@@ -256,12 +264,18 @@ export default function MissionPage() {
   );
 
   const availability = useMemo(() => {
-    const trivia = true;
-    const voice = progress.completed.trivia;
-    const history = progress.completed.voice;
-    const extraction = progress.completed.history;
+    const trivia = isTimeReached(runtimeConfig.clueMeta.trivia.time, now);
+    const voice =
+      isTimeReached(runtimeConfig.clueMeta.voice.time, now) &&
+      progress.completed.trivia;
+    const history =
+      isTimeReached(runtimeConfig.clueMeta.history.time, now) &&
+      progress.completed.voice;
+    const extraction =
+      isTimeReached(runtimeConfig.clueMeta.extraction.time, now) &&
+      progress.completed.history;
     return { trivia, voice, history, extraction };
-  }, [progress.completed]);
+  }, [now, progress.completed, runtimeConfig.clueMeta]);
 
   const decrypted = caesarDecrypt(
     runtimeConfig.final.cipher.join(""),
@@ -444,6 +458,7 @@ export default function MissionPage() {
             progress={progress}
             availability={availability}
             runtimeConfig={runtimeConfig}
+            now={now}
             onOpen={(target) => {
               tone("click", progress.soundEnabled);
               setScreen(target);
@@ -585,11 +600,13 @@ function Dashboard({
   progress,
   availability,
   runtimeConfig,
+  now,
   onOpen,
 }: {
   progress: MissionProgress;
   availability: Record<ClueId | "extraction", boolean>;
   runtimeConfig: MissionRuntimeConfig;
+  now: Date;
   onOpen: (screen: MissionScreen) => void;
 }) {
   const segments = [
@@ -623,7 +640,7 @@ function Dashboard({
               (id === "history" && !progress.completed.voice) ||
               (id === "extraction" && !progress.completed.history))
               ? "PREVIOUS INTEL REQUIRED"
-              : "READY AFTER PREVIOUS INTEL";
+              : `T-${countdownTo(meta.time, now)}`;
           return (
             <button
               key={id}
@@ -635,7 +652,6 @@ function Dashboard({
               <span className="clue-copy">
                 <small>{meta.time} TRT</small>
                 <strong>{meta.title}</strong>
-                <em>{meta.subtitle}</em>
               </span>
               <span className="card-status">
                 {completed ? "DECRYPTED" : available ? "AVAILABLE →" : lockedReason}

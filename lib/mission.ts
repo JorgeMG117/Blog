@@ -1,6 +1,8 @@
 export const missionConfig = {
+  date: "2026-08-11",
+  timeZone: "Europe/Istanbul",
   storageKey: "project_istanbul_progress",
-  version: 4,
+  version: 5,
   codes: [
     { id: "bed", icon: "🛏️", label: "Bed Key", value: "8" },
     { id: "suitcase", icon: "🧳", label: "Suitcase Key", value: "3" },
@@ -153,28 +155,28 @@ export const defaultMissionRuntimeConfig: MissionRuntimeConfig = {
   },
   clueMeta: {
     trivia: {
-      title: "CLUE 1: SECURITY TRIVIA",
-      subtitle: "PERSONAL INTELLIGENCE CHECK",
+      title: "CLUE 1",
+      subtitle: "",
       time: "14:00",
       icon: "01",
     },
     voice: {
-      title: "CLUE 2: VOICE RECOGNITION",
-      subtitle: "SPANISH AUDIO VERIFICATION",
+      title: "CLUE 2",
+      subtitle: "",
       time: "17:00",
       icon: "02",
     },
     history: {
-      title: "SECURITY CHECKS COMPLETE",
-      subtitle: "KARAKÖY WATERFRONT ORDER",
+      title: "CLUE 3",
+      subtitle: "",
       time: "18:30",
       icon: "03",
     },
     extraction: {
-      title: "MASTER KEY EXTRACTION",
-      subtitle: "PHYSICAL ASSET REQUIRED",
+      title: "CLUE 4",
+      subtitle: "",
       time: "19:45",
-      icon: "⚠",
+      icon: "04",
     },
   },
 };
@@ -391,6 +393,48 @@ export function parseDurationMinutes(value: string): number | null {
 
   const number = normalized.match(/^\d+$/);
   return number ? Number(number[0]) : null;
+}
+
+function istanbulDateTime(now: Date): { date: string; minutes: number } {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: missionConfig.timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(now);
+  const get = (type: Intl.DateTimeFormatPartTypes) =>
+    parts.find((part) => part.type === type)?.value ?? "0";
+
+  return {
+    date: `${get("year")}-${get("month")}-${get("day")}`,
+    minutes: Number(get("hour")) * 60 + Number(get("minute")),
+  };
+}
+
+export function isTimeReached(time: string, now = new Date()): boolean {
+  const current = istanbulDateTime(now);
+  if (current.date < missionConfig.date) return false;
+  if (current.date > missionConfig.date) return true;
+
+  const [hours, minutes] = time.split(":").map(Number);
+  return current.minutes >= hours * 60 + minutes;
+}
+
+export function countdownTo(time: string, now = new Date()): string {
+  if (isTimeReached(time, now)) return "AVAILABLE";
+
+  const event = new Date(`${missionConfig.date}T${time}:00+03:00`);
+  const seconds = Math.max(0, Math.floor((event.getTime() - now.getTime()) / 1000));
+  const days = Math.floor(seconds / 86400);
+  const hours = Math.floor((seconds % 86400) / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const remainder = seconds % 60;
+
+  if (days > 0) return `${days}D ${hours}H ${minutes}M`;
+  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(remainder).padStart(2, "0")}`;
 }
 
 export function caesarDecrypt(value: string, shift: number): string {
