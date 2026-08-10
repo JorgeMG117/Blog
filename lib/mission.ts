@@ -15,6 +15,7 @@ export const missionConfig = {
 
 export type ClueId = "trivia" | "voice" | "history";
 export type MissionScreen =
+  | "briefing"
   | "access"
   | "dashboard"
   | ClueId

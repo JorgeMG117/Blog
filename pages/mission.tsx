@@ -152,7 +152,7 @@ export default function MissionPage() {
     createInitialProgress(defaultMissionControlState.progressVersion),
   );
   const [hydrated, setHydrated] = useState(false);
-  const [screen, setScreen] = useState<MissionScreen>("access");
+  const [screen, setScreen] = useState<MissionScreen>("briefing");
   const [accessCodes, setAccessCodes] = useState(
     defaultMissionControlState.config.codes.map(() => ""),
   );
@@ -204,7 +204,7 @@ export default function MissionPage() {
           ? "success"
           : nextProgress.roomUnlocked
             ? "dashboard"
-            : "access",
+            : "briefing",
       );
       setHydrated(true);
     }
@@ -386,6 +386,28 @@ export default function MissionPage() {
           {progress.soundEnabled ? "SOUND: ON" : "SOUND: OFF"}
         </button>
 
+        {screen === "briefing" && (
+          <section className="screen access-screen">
+            <div className="classification">TOP SECRET // EYES ONLY</div>
+            <p className="eyebrow">[ FIELD SEARCH REQUIRED ]</p>
+            <h1 className="hero-title">PROJECT<br /><span>ISTANBUL</span></h1>
+            <p className="hero-copy">
+              There are 5 numbers hidden in this room.<br />
+              Find them.
+            </p>
+            <button
+              className="primary-button briefing-button"
+              onClick={() => {
+                tone("click", progress.soundEnabled);
+                setScreen("access");
+              }}
+              type="button"
+            >
+              I FOUND THE 5 NUMBERS <span>→</span>
+            </button>
+          </section>
+        )}
+
         {screen === "access" && (
           <section className="screen access-screen">
             <div className="classification">TOP SECRET // EYES ONLY</div>
@@ -399,7 +421,6 @@ export default function MissionPage() {
               {runtimeConfig.codes.map((code, index) => (
                 <label className="code-field" key={code.id}>
                   <span className="code-icon">{code.icon}</span>
-                  <span>{code.label}</span>
                   <input
                     value={accessCodes[index] ?? ""}
                     onChange={(event) => {
@@ -868,6 +889,7 @@ function MissionStyles() {
       .hero-title span { color: transparent; -webkit-text-stroke: 1px var(--gold); text-shadow: 0 0 30px rgba(243,183,0,.22); }
       .hero-copy { max-width: 590px; margin: 0 auto 35px; color: #98a3b3; font-size: 13px; line-height: 1.8; }
       .code-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+      .briefing-button { margin-top: 22px; }
       .code-field { display: flex; flex-direction: column; gap: 8px; padding: 16px 8px; background: rgba(15,22,34,.9); border: 1px solid #253148; color: #8995a6; font-size: 9px; letter-spacing: .08em; }
       .code-icon { font-size: 25px; filter: grayscale(.2); }
       .code-field input { width: 58px; margin: 3px auto 0; border: 0; border-bottom: 1px solid #45536a; background: transparent; color: var(--green); text-align: center; font: 25px inherit; }
