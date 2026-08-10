@@ -1,12 +1,12 @@
 export const missionConfig = {
   storageKey: "project_istanbul_progress",
-  version: 3,
+  version: 4,
   codes: [
-    { id: "bed", icon: "🛏️", label: "Bed Key", value: "1" },
-    { id: "suitcase", icon: "🧳", label: "Suitcase Key", value: "2" },
-    { id: "chest", icon: "👕", label: "Chest Key", value: "3" },
-    { id: "flowers", icon: "💐", label: "Flowers Key", value: "4" },
-    { id: "cream", icon: "🧴", label: "Cream Key", value: "5" },
+    { id: "bed", icon: "🛏️", label: "Bed Key", value: "8" },
+    { id: "suitcase", icon: "🧳", label: "Suitcase Key", value: "3" },
+    { id: "chest", icon: "👕", label: "Chest Key", value: "6" },
+    { id: "flowers", icon: "💐", label: "Flowers Key", value: "1" },
+    { id: "cream", icon: "🧴", label: "Cream Key", value: "9" },
   ],
   cipher: ["T", "B", "Y", "C", "L", "Y"],
   masterKey: "7",
@@ -131,7 +131,7 @@ export const defaultMissionRuntimeConfig: MissionRuntimeConfig = {
     "Mmmmm como me gustan los ladyboys",
   ],
   history: {
-    title: "RENDEZVOUS INSTRUCTIONS",
+    title: "FIELD INSTRUCTIONS",
     riddle:
       "ALL SECURITY CHECKS COMPLETE. BE AT KARAKÖY WATERFRONT AT 19:45 FOR THE NEXT CLUE.",
     answer: "",
@@ -166,7 +166,7 @@ export const defaultMissionRuntimeConfig: MissionRuntimeConfig = {
     },
     history: {
       title: "SECURITY CHECKS COMPLETE",
-      subtitle: "KARAKÖY WATERFRONT RENDEZVOUS",
+      subtitle: "KARAKÖY WATERFRONT ORDER",
       time: "18:30",
       icon: "03",
     },

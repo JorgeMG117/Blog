@@ -160,7 +160,7 @@ export default function MissionControl({
                       }))
                     }
                   />
-                  {id === "history" ? "rendezvous" : id}
+                  {id === "history" ? "field order" : id}
                 </label>
               ))}
             </div>
@@ -260,7 +260,7 @@ export default function MissionControl({
           </section>
 
           <section className="rounded-md border border-stone-300 bg-white p-5 dark:border-stone-600 dark:bg-stone-900">
-            <h2 className="mb-4 text-xl font-semibold">Rendezvous</h2>
+            <h2 className="mb-4 text-xl font-semibold">Field Instructions</h2>
             <div className="grid gap-3">
               <label className="block text-sm">
                 Title
