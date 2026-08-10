@@ -1,12 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getIronSession } from "iron-session";
-
 import {
   getMissionControlState,
   saveMissionControlState,
 } from "../../../lib/mission-control";
 import { mergeMissionControlState, MissionControlState } from "../../../lib/mission";
-import { sessionOptions, SessionData } from "../../../lib/session";
 import { ApiResponse, parseJsonRequest } from "../../../types/api/types";
 import { handleError } from "../errorHandler";
 
@@ -15,12 +12,6 @@ export default async function handler(
   res: NextApiResponse<ApiResponse<MissionControlState>>,
 ) {
   try {
-    const session = await getIronSession<SessionData>(req, res, sessionOptions);
-    if (!session.user) {
-      res.status(401).json({ isSuccess: false, message: "Unauthorized." });
-      return;
-    }
-
     if (req.method === "GET") {
       res.status(200).json({ data: await getMissionControlState(), isSuccess: true });
       return;

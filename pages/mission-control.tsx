@@ -1,5 +1,4 @@
-import type { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
-import { getIronSession } from "iron-session";
+import type { InferGetServerSidePropsType } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
@@ -7,7 +6,6 @@ import { useState } from "react";
 import Layout from "../components/layout";
 import { getMissionControlState } from "../lib/mission-control";
 import { MissionControlState, MissionTriviaQuestion } from "../lib/mission";
-import { sessionOptions, SessionData } from "../lib/session";
 import type { ApiResponse } from "../types/api/types";
 
 function splitList(value: string): string[] {
@@ -444,22 +442,6 @@ export default function MissionControl({
   );
 }
 
-export const getServerSideProps = async ({
-  req,
-  res,
-}: GetServerSidePropsContext) => {
-  const { user } = await getIronSession<SessionData>(req, res, sessionOptions);
-
-  if (!user) {
-    return {
-      redirect: {
-        destination: "/content/login",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: { initialState: await getMissionControlState() },
-  };
-};
+export const getServerSideProps = async () => ({
+  props: { initialState: await getMissionControlState() },
+});
