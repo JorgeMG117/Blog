@@ -2,7 +2,7 @@ export const missionConfig = {
   date: "2026-08-11",
   timeZone: "Europe/Istanbul",
   storageKey: "project_istanbul_progress",
-  version: 6,
+  version: 7,
   codes: [
     { id: "bed", icon: "🛏️", label: "Bed Key", value: "8" },
     { id: "suitcase", icon: "🧳", label: "Suitcase Key", value: "3" },
@@ -103,22 +103,22 @@ export const defaultMissionRuntimeConfig: MissionRuntimeConfig = {
       acceptedAnswers: ["Washington", "Washington DC", "Washington D.C.", "DC"],
     },
     {
-      prompt: "In which Nintendo Switch game am I going to destroy you?",
+      prompt: "In which Nintendo Switch game is Jorge going to destroy you?",
       placeholder: "Game",
       acceptedAnswers: ["Mario Kart"],
     },
     {
-      prompt: "Which is officially the worst country in the world?",
+      prompt: "Which is lamest country in the world?",
       placeholder: "Country",
       acceptedAnswers: ["Georgia"],
     },
     {
       prompt: "How many minutes was our longest videocall?",
-      placeholder: "e.g. 5h15min",
+      placeholder: "e.g. 9h30min",
       acceptedAnswers: [],
       durationRange: {
-        minMinutes: 300,
-        maxMinutes: 330,
+        minMinutes: 540,
+        maxMinutes: 600,
       },
     },
     {
@@ -129,9 +129,11 @@ export const defaultMissionRuntimeConfig: MissionRuntimeConfig = {
   ],
   voicePhrases: [
     "Mañaña",
-    "Jorge es mucho mejor que yo a los videojuegos",
-    "Quiero comer kebab",
+    "Jorge esta tan bueno",
+    "Cuqui",
+    "Quiero comer muchos kebabs",
     "Mmmmm como me gustan los ladyboys",
+    "España es el mejor pais del mundo.",
   ],
   history: {
     title: "FIELD INSTRUCTIONS",
