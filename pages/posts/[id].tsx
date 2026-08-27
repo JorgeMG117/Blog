@@ -56,8 +56,9 @@ export async function getStaticPaths() {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const post = await getPostByUrlId(params?.id as string);
-  const parsedContent = await parseMarkdownToHtml(post.content);
-  post.content = parsedContent;
+  if (!post.contentIsHtml) {
+    post.content = await parseMarkdownToHtml(post.content);
+  }
   return {
     props: {
       post,

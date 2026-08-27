@@ -1,7 +1,10 @@
 import crypto from "crypto";
 import { NextApiRequest, NextApiResponse } from "next";
 import { handleError } from "../errorHandler";
-import { getActiveWolCommand } from "../../../lib/request-handlers/wol-request";
+import {
+  fetchWolRelay,
+  forwardWolRelayResponse,
+} from "../../../lib/wol-relay";
 
 function requireBearerToken(req: NextApiRequest, expected: string): boolean {
   const header = req.headers.authorization ?? "";
@@ -27,11 +30,8 @@ export default async function handler(
   }
 
   try {
-    const command = await getActiveWolCommand();
-    if (!command) {
-      return res.status(204).end();
-    }
-    return res.status(200).json({ id: command.id, action: command.action });
+    const relayResponse = await fetchWolRelay("/commands/active");
+    await forwardWolRelayResponse(relayResponse, res);
   } catch (error) {
     handleError(res, error, "Failed to fetch WoL command.");
   }

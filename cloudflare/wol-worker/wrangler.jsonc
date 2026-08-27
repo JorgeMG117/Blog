@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "blog-wol-relay",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-27",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "blog-wol",
+      "database_id": "988868ab-2c50-47f5-8aa8-55aafd478296"
+    }
+  ]
+}

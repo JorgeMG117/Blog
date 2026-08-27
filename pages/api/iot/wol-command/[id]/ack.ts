@@ -1,7 +1,10 @@
 import crypto from "crypto";
 import { NextApiRequest, NextApiResponse } from "next";
 import { handleError } from "../../../errorHandler";
-import { ackWolCommand } from "../../../../../lib/request-handlers/wol-request";
+import {
+  fetchWolRelay,
+  forwardWolRelayResponse,
+} from "../../../../../lib/wol-relay";
 
 function requireBearerToken(req: NextApiRequest, expected: string): boolean {
   const header = req.headers.authorization ?? "";
@@ -32,11 +35,11 @@ export default async function handler(
   }
 
   try {
-    const command = await ackWolCommand(id);
-    if (!command) {
-      return res.status(404).json({ isSuccess: false, message: "Command not found." });
-    }
-    return res.status(200).json({ isSuccess: true, message: "Command acknowledged." });
+    const relayResponse = await fetchWolRelay(
+      `/commands/${encodeURIComponent(id)}/ack`,
+      { method: "POST" },
+    );
+    await forwardWolRelayResponse(relayResponse, res);
   } catch (error) {
     handleError(res, error, "Failed to acknowledge WoL command.");
   }

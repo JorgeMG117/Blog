@@ -10,31 +10,42 @@ export interface BlogPost {
   date: string;
   description: string;
   tags: string[];
+  contentIsHtml?: boolean;
 }
 
 const baseQuery = sql`select id, title, content, slug, description, tags, (published_at at time zone 'utc') as published_at from post.post where published_at is not null`;
 
 export async function getRecentPosts(): Promise<BlogPost[]> {
-  const posts = await sql<
-    Post[]
-  >`${baseQuery} order by published_at desc limit 5`;
-  return posts.map(toBlogPost);
+  try {
+    const posts = await sql<
+      Post[]
+    >`${baseQuery} order by published_at desc limit 5`;
+    return posts.map(toBlogPost);
+  } catch {
+    const { getProductionPostSummaries } = await import("./production-posts");
+    return (await getProductionPostSummaries()).slice(0, 5);
+  }
 }
 
 export async function getAllPosts(): Promise<BlogPost[]> {
-  const posts = await sql<Post[]>`${baseQuery} order by published_at desc`;
-
-  return posts.map(toBlogPost);
+  try {
+    const posts = await sql<Post[]>`${baseQuery} order by published_at desc`;
+    return posts.map(toBlogPost);
+  } catch {
+    const { getProductionPostSummaries } = await import("./production-posts");
+    return getProductionPostSummaries();
+  }
 }
 
 export async function getPostByUrlId(urlId: string): Promise<BlogPost | never> {
-  const post = (await sql<Post[]>`${baseQuery} and slug = ${urlId}`)[0];
-
-  if (!post) {
-    throw new Error("No post found with given urlId");
+  try {
+    const post = (await sql<Post[]>`${baseQuery} and slug = ${urlId}`)[0];
+    if (!post) throw new Error("No post found with given urlId");
+    return toBlogPost(post);
+  } catch {
+    const { getProductionPost } = await import("./production-posts");
+    return getProductionPost(urlId);
   }
-
-  return toBlogPost(post);
 }
 
 export async function getPaginatedPosts(

@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import { NextApiRequest, NextApiResponse } from "next";
 import { handleError } from "../errorHandler";
-import { getWolStatus } from "../../../lib/request-handlers/wol-request";
+import { fetchWolRelay } from "../../../lib/wol-relay";
 
 function requireBearerToken(req: NextApiRequest, expected: string): boolean {
   const header = req.headers.authorization ?? "";
@@ -27,7 +27,11 @@ export default async function handler(
   }
 
   try {
-    const status = await getWolStatus();
+    const relayResponse = await fetchWolRelay("/commands/status");
+    if (!relayResponse.ok) {
+      throw new Error(`WoL relay returned ${relayResponse.status}.`);
+    }
+    const status = await relayResponse.json();
     return res.status(200).json({ isSuccess: true, data: status });
   } catch (error) {
     handleError(res, error, "Failed to fetch wake status.");
